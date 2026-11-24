@@ -2,46 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#FAF6EF">
-  <meta name="description" content="Plan 28 easy family dinners with weekly grocery lists and prep-ahead schedules. All recipes take 30 minutes or less. Download the 4-week PDF for $12.">
+  <meta name="description" content="28 easy family dinners, weekly grocery lists, and prep-ahead schedules. Every recipe takes 30 minutes or less. Get the 4-week PDF for $12.">
 
   <title>The 4-Week Dinner Plan | 28 Easy Family Dinners</title>
 
+  <link rel="alternate" hreflang="uk" href="index.html">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23B4552F'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='16' fill='%23FAF6EF' text-anchor='middle'%3E4%3C/text%3E%3C/svg%3E">
 
   <style>
+    /* =========================================================
+       DESIGN TOKENS
+    ========================================================= */
+
     :root {
       --paper: #FAF6EF;
+      --white: #FFFFFF;
+      --cream: #F4EDE1;
       --ink: #1C1A17;
       --body: #3A362F;
+      --intro: #4A453C;
       --muted: #6E675C;
       --accent: #B4552F;
       --accent-deep: #8F3F21;
       --accent-hover: #7A3419;
-      --card: #FFFFFF;
+      --olive: #6E7A5E;
       --line: #E4DCCE;
-      --soft: #F1EADF;
-      --olive: #626C4B;
-      --hairline: rgba(228,220,206,.8);
-      --shadow: 0 10px 30px -20px rgba(28,26,23,.35);
+      --card-line: #E7DFD1;
+
       --serif: Georgia, "Times New Roman", serif;
       --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+      --ease: cubic-bezier(.22,.61,.36,1);
+
+      --card-shadow:
+        inset 0 1px 0 #FFFFFF,
+        0 0 0 1px transparent,
+        0 1px 2px rgba(28,26,23,.05),
+        0 10px 24px -18px rgba(28,26,23,.28);
+
+      --card-shadow-hover:
+        inset 0 1px 0 #FFFFFF,
+        0 0 0 1px transparent,
+        0 2px 4px rgba(28,26,23,.06),
+        0 22px 40px -24px rgba(28,26,23,.38);
+
+      --button-shadow:
+        0 8px 18px -10px rgba(143,63,33,.55);
+
       --header-height: 60px;
+      --section-space: 72px;
     }
 
-    *, *::before, *::after {
+    /* =========================================================
+       RESET / BASE
+    ========================================================= */
+
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
+      position: relative;
+      isolation: isolate;
       margin: 0;
-      background: var(--paper);
       color: var(--body);
+      background: var(--paper);
       font-family: var(--sans);
       font-size: 17px;
       line-height: 1.65;
@@ -49,38 +83,60 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    section[id],
-    main[id] {
-      scroll-margin-top: 80px;
+    /*
+      The grain layer sits above the section backgrounds but
+      below the actual content. It cannot intercept interaction.
+    */
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.85'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      content: "";
     }
 
     [hidden] {
       display: none !important;
     }
 
-    h1, h2, h3, p, figure, blockquote {
+    h1,
+    h2,
+    h3,
+    p,
+    figure,
+    blockquote {
       margin: 0;
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       color: var(--ink);
       font-family: var(--serif);
       font-weight: 400;
-      letter-spacing: -.012em;
-      line-height: 1.06;
       overflow-wrap: break-word;
     }
 
     h1 {
-      font-size: clamp(42px, 6vw, 76px);
+      font-size: clamp(40px,5.8vw,75px);
+      line-height: 1.06;
+      letter-spacing: -.012em;
     }
 
     h2 {
-      font-size: clamp(34px, 4.5vw, 52px);
+      font-size: clamp(30px,3.4vw,46px);
+      line-height: 1.08;
+      letter-spacing: -.018em;
     }
 
     h3 {
       font-size: 24px;
+      line-height: 1.16;
+      letter-spacing: -.012em;
     }
 
     p {
@@ -92,11 +148,14 @@
       text-decoration: none;
     }
 
-    button, input {
+    button,
+    input {
       font: inherit;
     }
 
-    button, a, input {
+    button,
+    a,
+    input {
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -116,106 +175,203 @@
 
     ::selection {
       color: var(--ink);
-      background: #EAD0BA;
+      background: rgba(180,85,47,.18);
     }
 
+    section[id],
+    main[id],
+    #buy,
+    #week-preview {
+      scroll-margin-top: 80px;
+    }
+
+    /* =========================================================
+       LAYOUT / EDITORIAL RHYTHM
+    ========================================================= */
+
     .container {
-      width: min(calc(100% - 40px), 1180px);
-      margin-inline: auto;
+      position: relative;
+      z-index: 2;
+      width: min(calc(100% - 40px),1180px);
       min-width: 0;
+      margin-inline: auto;
     }
 
     .section {
-      padding-block: 68px;
-      border-top: 1px solid var(--hairline);
+      padding-block: var(--section-space);
+      border-top: 1px solid var(--line);
     }
 
-    .section-soft {
-      background: var(--soft);
+    .band-paper {
+      background: var(--paper);
+    }
+
+    .band-white {
+      background: var(--white);
+    }
+
+    .band-cream {
+      background: var(--cream);
     }
 
     .section-heading {
-      max-width: 690px;
-      margin-bottom: 34px;
+      max-width: 760px;
+      margin-bottom: 36px;
     }
 
-    .section-heading p {
-      margin-top: 16px;
-      max-width: 570px;
+    .section-heading > p,
+    .section-intro {
+      max-width: 46ch;
+      margin-top: 18px;
+      color: var(--intro);
+      font-size: 17.5px;
+      line-height: 1.7;
+    }
+
+    .section-heading h2 {
+      max-width: 700px;
     }
 
     .eyebrow {
       display: block;
       margin-bottom: 10px;
-      color: #8F3F21;
+      color: var(--accent-deep);
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: .14em;
       line-height: 1.5;
+      letter-spacing: .14em;
       text-transform: uppercase;
     }
 
-    .icon {
-      width: 23px;
-      height: 23px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
+    /*
+      Editorial section numbering matches the Ukrainian page.
+      Hero is 01, and FAQ is 08.
+    */
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
     }
 
-    /* BUTTONS */
+    .section-index {
+      flex-shrink: 0;
+      color: var(--accent);
+      font-size: 11.5px;
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: .18em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .section-kicker::before {
+      order: 1;
+      width: 24px;
+      height: 1px;
+      flex-shrink: 0;
+      background: var(--accent);
+      opacity: .65;
+      content: "";
+    }
+
+    .section-kicker .eyebrow {
+      order: 2;
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      letter-spacing: .1em;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-check {
+      color: var(--olive);
+    }
+
+    .paper-card {
+      min-width: 0;
+      border: 1px solid var(--card-line);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: var(--card-shadow);
+      transition:
+        box-shadow .22s var(--ease),
+        translate .22s var(--ease),
+        border-color .22s var(--ease);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .paper-card:hover {
+        translate: 0 -3px;
+        box-shadow: var(--card-shadow-hover);
+      }
+    }
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
 
     .button {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
       min-width: 44px;
       min-height: 58px;
-      padding: 15px 21px;
+      padding: 16px 23px;
       border: 1.5px solid transparent;
-      border-radius: 9px;
+      border-radius: 10px;
       font-size: 15px;
       font-weight: 650;
       line-height: 1.4;
       text-align: center;
       transition:
-        background-color .18s ease,
-        border-color .18s ease,
-        color .18s ease;
+        background-color .22s var(--ease),
+        border-color .22s var(--ease),
+        box-shadow .22s var(--ease),
+        transform .22s var(--ease);
     }
 
     .button-primary {
-      background: #8F3F21;
-      border-color: #8F3F21;
-      color: #FFFFFF;
+      color: var(--white);
+      border-color: var(--accent-deep);
+      background: var(--accent-deep);
+      box-shadow: var(--button-shadow);
     }
 
     .button-primary:hover {
-      background: #7A3419;
-      border-color: #7A3419;
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      box-shadow:
+        0 10px 22px -10px rgba(143,63,33,.6);
     }
 
     .button-primary:focus-visible {
-      outline: 2px solid #8F3F21;
+      outline: 2px solid var(--accent-deep);
       outline-offset: 4px;
     }
 
     .button-secondary {
-      min-height: 58px;
-      border: 1.5px solid #1C1A17;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
       background: transparent;
-      color: #1C1A17;
       font-weight: 600;
     }
 
     .button-secondary:hover {
-      border-color: var(--ink);
-      background: rgba(28,26,23,.045);
-      color: var(--ink);
+      background: var(--white);
     }
 
     .button-secondary:focus-visible {
@@ -223,9 +379,26 @@
       outline-offset: 4px;
     }
 
-    .button .icon {
-      width: 17px;
-      height: 17px;
+    .button:active {
+      transform: translateY(1px);
+    }
+
+    .button .arrow {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform .22s var(--ease);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .button:hover .arrow {
+        transform: translateX(3px);
+      }
     }
 
     .skip-link {
@@ -237,8 +410,8 @@
       align-items: center;
       min-height: 44px;
       padding: 12px 18px;
-      border-radius: 6px;
-      color: white;
+      border-radius: 8px;
+      color: var(--white);
       background: var(--ink);
       transform: translateY(-160%);
     }
@@ -247,16 +420,18 @@
       transform: translateY(0);
     }
 
-    /* HEADER */
+    /* =========================================================
+       HEADER
+    ========================================================= */
 
     .site-header {
       position: sticky;
       top: 0;
       z-index: 50;
       height: var(--header-height);
+      border-bottom: 1px solid var(--line);
       background: rgba(250,246,239,.94);
-      border-bottom: 1px solid var(--hairline);
-      transition: background-color .2s ease;
+      transition: background-color .22s var(--ease);
     }
 
     .site-header.scrolled {
@@ -280,15 +455,15 @@
       color: var(--ink);
       font-family: var(--serif);
       font-size: 19px;
-      letter-spacing: -.012em;
       line-height: 1.1;
+      letter-spacing: -.012em;
     }
 
     .brand-icon {
       width: 30px;
       height: 30px;
-      color: var(--accent);
       flex-shrink: 0;
+      color: var(--accent);
     }
 
     .main-nav {
@@ -302,17 +477,26 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
       min-width: 44px;
+      min-height: 44px;
       padding: 5px 0;
       color: var(--muted);
       font-size: 13px;
       font-weight: 550;
       white-space: nowrap;
+      transition: color .22s var(--ease);
     }
 
     .main-nav a:hover {
       color: var(--accent-deep);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-shrink: 0;
+      gap: 12px;
     }
 
     .header-buy {
@@ -328,16 +512,73 @@
       margin-left: 4px;
     }
 
-    /* HERO */
+    /* LANGUAGE SWITCHER */
+
+    .langs {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      gap: 6px;
+    }
+
+    .lang {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--body);
+      background: var(--white);
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .lang.is-active {
+      color: var(--paper);
+      border-color: var(--ink);
+      background: var(--ink);
+      cursor: default;
+    }
+
+    a.lang:hover {
+      color: var(--accent-deep);
+      border-color: var(--accent-deep);
+    }
+
+    a.lang::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100%,44px);
+      height: max(100%,44px);
+      transform: translate(-50%,-50%);
+      content: "";
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
 
     .hero {
-      padding-block: 46px 64px;
+      position: relative;
+      padding-block: 48px 68px;
+      background: var(--paper);
     }
 
     .hero-grid {
       display: grid;
-      gap: 34px;
+      grid-template-columns: minmax(0,1fr);
       align-items: start;
+      gap: 38px;
     }
 
     .hero-copy {
@@ -349,15 +590,16 @@
     }
 
     .hero h1 em {
-      color: #B4552F;
+      color: var(--accent);
       font-weight: 400;
     }
 
     .hero-description {
-      max-width: 510px;
+      max-width: 46ch;
       margin-top: 24px;
-      color: #3A362F;
+      color: var(--body);
       font-size: 18px;
+      line-height: 1.7;
     }
 
     .hero-actions {
@@ -374,9 +616,9 @@
     .micro-trust {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 9px;
       margin-top: 20px;
-      color: #3A362F;
+      color: var(--body);
       font-size: 12px;
       line-height: 1.6;
     }
@@ -385,96 +627,160 @@
       width: 16px;
       height: 16px;
       margin-top: 2px;
-      color: var(--olive);
+      color: var(--accent-deep);
     }
 
-    /* PRODUCT MOCKUP */
+    /* =========================================================
+       PRODUCT MOCKUP
+    ========================================================= */
 
     .product-figure {
       min-width: 0;
-      padding-top: 0;
     }
 
     .product-stage {
       position: relative;
       isolation: isolate;
       width: 100%;
-      height: var(--stage-height, 294px);
+      height: var(--stage-height,295px);
       overflow: visible;
-      border: 1px solid #DED2C1;
-      border-radius: 20px;
-      background:
-        radial-gradient(
-          ellipse at 25% 10%,
-          rgba(255,255,255,.46),
-          transparent 65%
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent 0,
-          transparent 3px,
-          rgba(106,78,47,.018) 3px,
-          rgba(106,78,47,.018) 4px
-        ),
-        linear-gradient(145deg,#EFE7DA,#E1D5C2);
+      border: 1px solid var(--card-line);
+      border-radius: 26px;
+      background: #FFFFFF66;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.9),
+        0 16px 40px -30px rgba(28,26,23,.15);
+      contain: inline-size;
     }
 
-    /*
-      The 500 x 460 composition is scaled as one unit.
-      At 390px viewport width, its scale is .62 and its
-      stage height is approximately 295px.
-      Text and card shadows remain visible without clipping.
-    */
+    .product-stage::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background:
+        radial-gradient(
+          60% 60% at 50% 40%,
+          rgba(180,85,47,.16),
+          rgba(180,85,47,0) 70%
+        );
+      pointer-events: none;
+      content: "";
+    }
+
+    .product-stage::after {
+      position: absolute;
+      right: 12%;
+      bottom: 5%;
+      left: 12%;
+      z-index: -1;
+      height: 22%;
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(28,26,23,.055),
+          transparent 70%
+        );
+      pointer-events: none;
+      content: "";
+    }
 
     .mockup-composition {
       position: absolute;
       top: 0;
       left: 50%;
-      width: 500px;
-      height: 460px;
-      margin-left: -250px;
+      width: 0;
+      height: 0;
       transform-origin: top center;
       transform: scale(var(--mock-scale,.62));
       overflow: visible;
     }
 
-    .mockup-composition::before {
+    /*
+      The zero-width transform wrapper avoids contributing
+      the unscaled 500px canvas to mobile page overflow.
+      The individual composition layers stay fully visible.
+    */
+
+    .mockup-canvas {
       position: absolute;
-      left: 35px;
-      right: 30px;
-      bottom: 24px;
-      height: 60px;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(75,54,34,.12),
-        transparent 72%
-      );
-      content: "";
-      pointer-events: none;
+      top: 0;
+      left: -250px;
+      width: 500px;
+      height: 460px;
+      overflow: visible;
     }
 
-    /* Main book */
+    /* Back layer */
+
+    .recipe-card-mock {
+      position: absolute;
+      top: 34px;
+      right: 24px;
+      z-index: 2;
+      width: 210px;
+      min-height: 168px;
+      padding: 20px 17px;
+      overflow: visible;
+      border: 1px solid var(--card-line);
+      border-radius: 5px;
+      background: linear-gradient(160deg,#FFFFFF,#FAF6EF);
+      box-shadow:
+        0 20px 36px -16px rgba(28,26,23,.35),
+        0 3px 8px rgba(28,26,23,.10);
+      transform: rotate(8deg);
+    }
+
+    .recipe-card-content {
+      width: 135px;
+      margin-left: auto;
+    }
+
+    .recipe-card-mock strong {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.18;
+    }
+
+    .recipe-card-mock small {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--body);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .recipe-card-mock small:first-of-type {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Middle layer */
 
     .book {
       position: absolute;
+      top: 48px;
+      left: 36px;
       z-index: 3;
-      top: 42px;
-      left: 40px;
-      width: 260px;
-      height: 354px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px 26px 23px 31px;
+      width: 252px;
+      height: 352px;
+      padding: 28px 22px 22px 27px;
       overflow: visible;
       border: 1px solid #DED5C5;
       border-radius: 3px 7px 7px 3px;
       background: linear-gradient(160deg,#FFFFFF,#F6F1E6);
       box-shadow:
-        0 18px 40px -18px rgba(28,26,23,.45),
-        0 2px 6px rgba(28,26,23,.18);
-      transform: rotate(-4deg);
+        0 25px 48px -18px rgba(28,26,23,.45),
+        0 3px 8px rgba(28,26,23,.18);
       text-align: center;
+      transform: rotate(-4deg);
     }
 
     .book::before {
@@ -485,15 +791,16 @@
       width: 8px;
       border-right: 1px solid rgba(109,91,66,.12);
       border-radius: 2px 0 0 2px;
-      background: linear-gradient(
-        90deg,
-        rgba(100,78,50,.10),
-        rgba(255,255,255,.95) 45%,
-        rgba(255,255,255,.25) 80%,
-        transparent
-      );
-      content: "";
+      background:
+        linear-gradient(
+          90deg,
+          rgba(100,78,50,.10),
+          rgba(255,255,255,.95) 45%,
+          rgba(255,255,255,.25) 80%,
+          transparent
+        );
       pointer-events: none;
+      content: "";
     }
 
     .book::after {
@@ -506,13 +813,14 @@
       border: 1px solid #D8CEBE;
       border-top: 0;
       border-radius: 0 0 4px 2px;
-      background: repeating-linear-gradient(
-        0deg,
-        #E6DECF 0,
-        #E6DECF 1px,
-        #FBF8F0 1px,
-        #FBF8F0 2px
-      );
+      background:
+        repeating-linear-gradient(
+          0deg,
+          #E6DECF 0,
+          #E6DECF 1px,
+          #FBF8F0 1px,
+          #FBF8F0 2px
+        );
       content: "";
     }
 
@@ -520,19 +828,19 @@
       width: 100%;
       color: var(--accent-deep);
       font-family: var(--sans);
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 600;
-      letter-spacing: .12em;
       line-height: 1.5;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
 
     .book-title {
       width: 100%;
-      margin-top: 18px;
+      margin-top: 17px;
       color: var(--ink);
       font-family: var(--serif);
-      font-size: 39px;
+      font-size: 35px;
       font-weight: 400;
       line-height: 1.06;
       letter-spacing: -.012em;
@@ -546,10 +854,10 @@
 
     .book-art {
       display: block;
-      width: 144px;
-      height: 144px;
-      margin: 17px auto 12px;
+      width: 141px;
+      height: 141px;
       flex-shrink: 0;
+      margin: 17px auto 12px;
     }
 
     .book-edition {
@@ -557,79 +865,30 @@
       margin-top: auto;
       padding-top: 10px;
       border-top: 1px solid #DDD2C1;
-      color: #75624F;
-      font-size: 11px;
+      color: var(--muted);
+      font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: .09em;
       line-height: 1.5;
+      letter-spacing: .06em;
     }
 
-    /* Recipe card behind the book */
-
-    .recipe-card-mock {
-      position: absolute;
-      z-index: 2;
-      top: 42px;
-      right: 25px;
-      width: 205px;
-      min-height: 157px;
-      padding: 21px 19px;
-      overflow: visible;
-      border: 1px solid #DED4C3;
-      border-radius: 4px;
-      background: linear-gradient(160deg,#FFFFFF,#FAF6ED);
-      box-shadow:
-        0 12px 26px -14px rgba(28,26,23,.34),
-        0 2px 5px rgba(28,26,23,.08);
-      transform: rotate(8deg);
-    }
-
-    .recipe-card-content {
-      width: 132px;
-      margin-left: auto;
-    }
-
-    .recipe-card-mock strong {
-      display: block;
-      margin-bottom: 12px;
-      color: var(--ink);
-      font-family: var(--serif);
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 1.2;
-      letter-spacing: -.012em;
-    }
-
-    .recipe-card-mock small {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--body);
-      font-size: 10px;
-      line-height: 1.45;
-    }
-
-    .recipe-card-mock small:first-of-type {
-      color: var(--olive);
-      font-weight: 600;
-    }
-
-    /* Grocery list in the foreground */
+    /* Foreground layer */
 
     .mock-sheet {
       position: absolute;
+      top: 192px;
+      right: 16px;
       z-index: 4;
-      top: 185px;
-      right: 17px;
       width: 188px;
-      min-height: 236px;
-      padding: 18px 17px 15px;
+      min-height: 230px;
+      padding: 18px 16px 15px;
       overflow: visible;
-      border: 1px solid #DED4C3;
-      border-radius: 4px;
+      border: 1px solid var(--card-line);
+      border-radius: 5px;
       background: linear-gradient(160deg,#FFFFFF,#FBF7EF);
       box-shadow:
-        0 18px 30px -16px rgba(28,26,23,.4),
-        0 2px 5px rgba(28,26,23,.12);
+        0 25px 40px -16px rgba(28,26,23,.4),
+        0 3px 7px rgba(28,26,23,.12);
       transform: rotate(5deg);
     }
 
@@ -640,16 +899,15 @@
       font-size: 9px;
       font-weight: 600;
       line-height: 1.5;
+      letter-spacing: .10em;
       text-transform: uppercase;
-      letter-spacing: .12em;
     }
 
     .sheet-title {
       margin-bottom: 12px;
       color: var(--ink);
       font-family: var(--serif);
-      font-size: 25px;
-      font-weight: 400;
+      font-size: 21px;
       line-height: 1.06;
       letter-spacing: -.012em;
     }
@@ -665,10 +923,10 @@
     .sheet-row {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       min-height: 25px;
       padding-block: 4px;
-      border-bottom: 1px solid #E4DCCE;
+      border-bottom: 1px solid var(--line);
       color: var(--body);
       font-size: 11px;
       line-height: 1.4;
@@ -678,11 +936,10 @@
     .sheet-row::before {
       width: 9px;
       height: 9px;
-      border: 1px solid #AFA18D;
-      border-radius: 1px;
-      background: transparent;
-      content: "";
       flex-shrink: 0;
+      border: 1px solid #B6AA98;
+      border-radius: 1px;
+      content: "";
     }
 
     .sheet-row:last-child {
@@ -691,72 +948,86 @@
 
     .product-caption {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 5px 14px;
-      margin-top: 12px;
+      margin-top: 13px;
       color: var(--muted);
       font-size: 11px;
-      letter-spacing: .035em;
+      line-height: 1.6;
+      letter-spacing: .025em;
     }
 
-    /* CONTENT CARDS */
+    /* =========================================================
+       FEATURES
+    ========================================================= */
 
     .feature-grid {
       display: grid;
-      gap: 14px;
+      grid-template-columns: minmax(0,1fr);
+      gap: 16px;
     }
 
     .feature-card {
-      min-width: 0;
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--card);
-      box-shadow: var(--shadow);
+      padding: 27px;
     }
 
     .feature-icon {
       display: grid;
       place-items: center;
-      width: 46px;
-      height: 46px;
-      margin-bottom: 23px;
-      background: var(--soft);
-      border-radius: 12px;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 25px;
+      border-radius: 50%;
       color: var(--accent-deep);
+      background: rgba(180,85,47,.10);
+    }
+
+    .feature-icon .icon {
+      width: 25px;
+      height: 25px;
+      stroke-width: 1.6;
     }
 
     .feature-card h3 {
-      margin-bottom: 10px;
-      font-size: 23px;
+      margin-bottom: 11px;
+      font-size: 24px;
     }
 
     .feature-card p {
-      color: #3A362F;
-      font-size: 15px;
-      line-height: 1.65;
+      color: var(--body);
+      font-size: 15.5px;
+      line-height: 1.7;
     }
 
-    /* WEEKLY PLAN */
+    /* =========================================================
+       WEEKLY MENU
+    ========================================================= */
 
     .week-layout {
       display: grid;
+      grid-template-columns: minmax(0,1fr);
       align-items: center;
-      gap: 35px;
+      gap: 38px;
     }
 
     .week-layout > * {
       min-width: 0;
     }
 
-    .week-copy p {
-      margin-top: 20px;
+    .week-copy > p {
+      max-width: 46ch;
+      margin-top: 18px;
+      color: var(--intro);
+      font-size: 17.5px;
+      line-height: 1.7;
     }
 
     .week-aside {
+      max-width: 40ch;
       margin-top: 28px;
-      padding-left: 18px;
+      padding: 5px 0 5px 19px;
       border-left: 2px solid var(--accent);
       color: var(--ink);
       font-family: var(--serif);
@@ -766,192 +1037,311 @@
     }
 
     .week-paper {
-      padding: 22px 18px 18px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--card);
-      box-shadow: var(--shadow);
+      border-radius: 20px;
+      background: var(--white);
     }
 
     .week-paper-header {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding-bottom: 18px;
+      padding: 19px 20px;
+      border-bottom: 1px solid var(--line);
+      border-radius: 20px 20px 0 0;
+      background: rgba(244,237,225,.5);
     }
 
     .week-paper-header small {
       color: var(--accent-deep);
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: .12em;
+      line-height: 1.6;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    .week-paper-header h3 {
-      margin-top: 5px;
-      font-size: 30px;
+    .pdf-label {
+      flex-shrink: 0;
+      color: var(--muted);
+      font-size: 10.5px;
+      white-space: nowrap;
+    }
+
+    .week-paper-body {
+      min-width: 0;
+      padding: 20px 18px 18px;
+    }
+
+    .week-menu-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .week-menu-title h3 {
+      font-size: 32px;
     }
 
     .week-number {
-      color: #B8A995;
+      color: #B6A999;
       font-family: var(--serif);
-      font-size: 42px;
+      font-size: 43px;
       line-height: 1;
+      letter-spacing: -.04em;
     }
 
     .meal-table {
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
-      font-size: 13px;
-      line-height: 1.4;
+      background: rgba(244,237,225,.26);
+    }
+
+    .meal-table col.day-col {
+      width: 84px;
+    }
+
+    .meal-table col.time-col {
+      width: 108px;
     }
 
     .meal-table th,
     .meal-table td {
-      padding: 13px 5px;
+      padding: 16px 9px;
       border-bottom: 1px solid var(--line);
       text-align: left;
-      overflow-wrap: break-word;
+      vertical-align: middle;
+      overflow-wrap: anywhere;
     }
 
     .meal-table thead th {
-      background: var(--soft);
+      padding-block: 12px;
       color: var(--muted);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .1em;
+      background: var(--cream);
+      font-family: var(--sans);
+      font-size: 9.5px;
+      font-weight: 650;
+      line-height: 1.45;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    .meal-table th:first-child {
-      width: 18%;
-      padding-left: 8px;
-    }
-
-    .meal-table th:last-child {
-      width: 23%;
-      padding-right: 8px;
+    .meal-table thead th:last-child {
       text-align: right;
     }
 
     .meal-table tbody th {
       color: var(--accent-deep);
-      font-weight: 650;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
     }
 
-    .meal-table tbody td {
-      color: var(--body);
+    .meal-table tbody tr:nth-child(even) {
+      background: rgba(255,255,255,.55);
     }
 
-    .meal-table tbody td:last-child {
-      padding-right: 8px;
-      color: var(--muted);
+    .meal-table tbody tr:last-child th,
+    .meal-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .meal-table .dish-name {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 15.5px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -.008em;
+    }
+
+    .meal-table .meal-time {
       text-align: right;
+    }
+
+    .meal-tags {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    .time-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 9px;
+      border-radius: 999px;
+      color: var(--body);
+      background: var(--cream);
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 550;
+      line-height: 1.45;
       white-space: nowrap;
-      font-size: 11px;
       font-variant-numeric: tabular-nums;
+    }
+
+    .meal-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      max-width: 100%;
+      font-size: 10px;
+      font-weight: 550;
+      line-height: 1.3;
+      text-align: right;
+    }
+
+    .meal-tag .icon {
+      width: 12px;
+      height: 12px;
+      stroke-width: 1.6;
+    }
+
+    .meal-tag-vegetarian {
+      color: #59654B;
+    }
+
+    .meal-tag-vegetarian .icon {
+      color: var(--olive);
+    }
+
+    .meal-tag-quick {
+      color: var(--accent-deep);
     }
 
     .week-footer {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 17px;
-      color: var(--olive);
+      gap: 9px;
+      margin-top: 18px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
       font-size: 12px;
       font-weight: 600;
+      line-height: 1.5;
     }
 
     .week-footer .icon {
-      width: 19px;
-      height: 19px;
+      width: 18px;
+      height: 18px;
+      color: var(--olive);
+      stroke-width: 1.8;
     }
 
     .preview-note {
-      margin-top: 10px;
+      margin-top: 13px;
       color: var(--muted);
       font-size: 11px;
+      line-height: 1.6;
     }
 
-    /* STATISTICS */
+    /* =========================================================
+       STATS
+    ========================================================= */
 
     .stats-section {
-      padding-block: 54px;
+      padding-block: 60px;
     }
 
     .stats-heading {
-      margin-bottom: 30px;
+      margin-bottom: 38px;
       text-align: center;
     }
 
-    .stats-heading h2 {
-      font-size: clamp(30px,4vw,43px);
+    .stats-heading .section-kicker {
+      justify-content: center;
+    }
+
+    .stats-heading .section-kicker .eyebrow {
+      flex: 0 1 auto;
     }
 
     .stats-grid {
       display: grid;
-      gap: 24px;
+      grid-template-columns: minmax(0,1fr);
+      gap: 22px;
     }
 
     .stat {
-      padding-block: 14px 25px;
-      border-bottom: 1px solid var(--hairline);
+      padding: 15px 12px 28px;
+      border-bottom: 1px solid var(--line);
       text-align: center;
     }
 
     .stat:last-child {
-      border-bottom: 0;
       padding-bottom: 0;
+      border-bottom: 0;
     }
 
     .stat-value {
       display: block;
-      color: var(--accent-deep);
+      color: var(--accent);
       font-family: var(--serif);
-      font-size: clamp(56px,7vw,86px);
-      letter-spacing: -.012em;
+      font-size: clamp(64px,7vw,88px);
       line-height: 1;
+      letter-spacing: -.04em;
+      font-variant-numeric: lining-nums;
     }
 
     .stat-label {
       display: block;
-      margin-top: 7px;
+      margin-top: 10px;
       color: var(--ink);
-      font-weight: 650;
       font-size: 17px;
+      font-weight: 650;
     }
 
     .stat p {
-      margin-top: 7px;
+      max-width: 28ch;
+      margin: 8px auto 0;
+      color: var(--body);
       font-size: 14px;
+      line-height: 1.65;
     }
 
-    /* SAMPLE FORM */
+    /* =========================================================
+       SAMPLE FORM
+    ========================================================= */
 
     .sample-panel {
       display: grid;
-      gap: 30px;
-      padding: 28px 23px;
-      border: 1px solid #DCCDBA;
-      border-radius: 20px;
-      background: #F8F3E9;
+      grid-template-columns: minmax(0,1fr);
+      gap: 32px;
+      padding: 30px 23px;
+      border: 1px solid var(--card-line);
+      border-radius: 24px;
+      background: var(--paper);
+      box-shadow:
+        inset 0 1px 0 #FFFFFF,
+        0 12px 32px -24px rgba(28,26,23,.16);
     }
 
     .sample-copy {
       min-width: 0;
     }
 
-    .sample-copy p {
-      margin-top: 17px;
+    .sample-copy > p {
+      max-width: 46ch;
+      margin-top: 18px;
+      color: var(--intro);
+      font-size: 17.5px;
+      line-height: 1.7;
     }
 
     .check-list {
       display: grid;
-      gap: 13px;
-      margin: 24px 0 0;
+      gap: 15px;
+      margin: 25px 0 0;
       padding: 0;
       list-style: none;
     }
@@ -959,9 +1349,10 @@
     .check-list li {
       display: flex;
       align-items: flex-start;
-      gap: 11px;
+      gap: 12px;
       color: var(--body);
-      font-size: 15px;
+      font-size: 15.5px;
+      line-height: 1.6;
     }
 
     .check-list .icon {
@@ -974,27 +1365,23 @@
 
     .form-card {
       align-self: center;
-      padding: 24px 20px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      min-width: 0;
+      padding: 27px 22px;
+      border-radius: 20px;
     }
 
     .form-card h3 {
-      margin-bottom: 7px;
-      font-size: 26px;
+      margin-bottom: 9px;
+      font-size: 28px;
     }
 
     .form-intro {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       font-size: 14px;
     }
 
     .field-label {
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
       color: var(--ink);
       font-size: 13px;
       font-weight: 650;
@@ -1006,34 +1393,43 @@
       min-width: 0;
       min-height: 54px;
       padding: 13px 14px;
-      border: 1px solid #C9BEAE;
-      border-radius: 8px;
+      border: 1px solid #CFC5B7;
+      border-radius: 9px;
       color: var(--ink);
       background: #FFFDFA;
       font-size: 16px;
+      transition:
+        border-color .22s var(--ease),
+        box-shadow .22s var(--ease);
     }
 
     .email-input::placeholder {
       color: var(--muted);
     }
 
+    .email-input:focus {
+      border-color: var(--accent-deep);
+    }
+
     .email-input[aria-invalid="true"] {
-      border-color: #A13729;
+      border-color: var(--accent-deep);
+      box-shadow: 0 0 0 2px rgba(180,85,47,.1);
     }
 
     .field-error {
-      margin-top: 6px;
-      color: #A13729;
+      margin-top: 7px;
+      color: var(--accent-deep);
       font-size: 12px;
+      line-height: 1.5;
     }
 
     .form-submit {
       width: 100%;
-      margin-top: 12px;
+      margin-top: 13px;
     }
 
     .form-privacy {
-      margin-top: 13px;
+      margin-top: 15px;
       color: var(--muted);
       font-size: 11px;
       line-height: 1.6;
@@ -1041,7 +1437,7 @@
     }
 
     .success-state {
-      padding-block: 20px;
+      padding-block: 22px;
       text-align: center;
     }
 
@@ -1052,13 +1448,14 @@
       height: 60px;
       margin: 0 auto 20px;
       border-radius: 50%;
-      background: #EDF0E5;
       color: var(--olive);
+      background: rgba(110,122,94,.09);
     }
 
     .success-icon .icon {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
+      stroke-width: 2;
     }
 
     .success-state p {
@@ -1066,169 +1463,221 @@
       font-size: 14px;
     }
 
-    /* PRICING */
+    /* =========================================================
+       PRICING
+    ========================================================= */
 
     .pricing-grid {
       display: grid;
+      grid-template-columns: minmax(0,1fr);
       align-items: center;
-      gap: 35px;
+      gap: 40px;
     }
 
     .pricing-grid > * {
       min-width: 0;
     }
 
-    .pricing-copy p {
+    .pricing-copy > p {
+      max-width: 46ch;
       margin-top: 18px;
-      max-width: 500px;
+      color: var(--intro);
+      font-size: 17.5px;
+      line-height: 1.7;
     }
 
     .pricing-copy .check-list {
-      margin-top: 28px;
-      gap: 15px;
+      margin-top: 30px;
+      gap: 16px;
     }
 
     .price-card {
-      padding: 28px 24px;
-      border: 1px solid #D3B7A1;
-      border-radius: 20px;
-      background: var(--card);
-      box-shadow: var(--shadow);
+      position: relative;
+      padding: 31px 26px;
+      border: 1px solid var(--card-line);
+      border-radius: 24px;
+      background: var(--white);
+      box-shadow:
+        inset 0 1px 0 #FFFFFF,
+        0 0 0 1px transparent,
+        0 30px 60px -40px rgba(28,26,23,.55);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .price-card:hover {
+        box-shadow:
+          inset 0 1px 0 #FFFFFF,
+          0 0 0 1px transparent,
+          0 2px 4px rgba(28,26,23,.06),
+          0 32px 64px -38px rgba(28,26,23,.52);
+      }
     }
 
     .price-tag {
-      display: inline-block;
-      padding: 6px 11px;
-      border: 1px solid #E1C7B6;
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border: 1px solid rgba(180,85,47,.19);
       border-radius: 5px;
-      background: #F7ECE3;
       color: var(--accent-deep);
+      background: rgba(180,85,47,.07);
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: .1em;
+      line-height: 1.5;
+      letter-spacing: .10em;
       text-transform: uppercase;
     }
 
     .price-card h3 {
-      margin-top: 20px;
-      font-size: 28px;
+      margin-top: 24px;
+      font-size: 29px;
+      line-height: 1.15;
     }
 
     .price-product-detail {
-      margin-top: 7px;
+      margin-top: 9px;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.65;
     }
 
     .price-display {
       display: flex;
       align-items: baseline;
       flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 26px;
+      gap: 14px;
+      margin-top: 28px;
     }
 
     .current-price {
       color: var(--ink);
       font-family: var(--serif);
-      font-size: 82px;
+      font-size: 54px;
       line-height: 1;
-      letter-spacing: -.012em;
+      letter-spacing: -.035em;
     }
 
     .original-price {
       color: var(--muted);
-      font-size: 25px;
+      font-size: 18px;
       text-decoration: line-through;
       text-decoration-thickness: 1px;
     }
 
     .price-note {
-      margin-top: 10px;
+      margin-top: 12px;
       color: var(--muted);
       font-size: 13px;
     }
 
     .price-divider {
       height: 1px;
-      margin-block: 24px;
-      background: var(--hairline);
+      margin-block: 26px;
+      background: var(--line);
     }
 
     .price-description {
+      color: var(--body);
       font-size: 15px;
+      line-height: 1.7;
     }
 
     .price-card .button {
       width: 100%;
-      margin-top: 24px;
+      margin-top: 0;
     }
 
     .price-trust {
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       gap: 7px;
-      margin-top: 15px;
-      color: var(--body);
-      font-size: 11px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.5;
       text-align: center;
     }
 
     .price-trust .icon {
-      width: 15px;
-      height: 15px;
-      color: var(--olive);
+      width: 14px;
+      height: 14px;
+      color: var(--muted);
+      stroke-width: 1.6;
     }
 
     .price-footnote {
-      margin-top: 15px;
+      margin-top: 16px;
       color: var(--muted);
       font-size: 11px;
+      line-height: 1.6;
       text-align: center;
     }
 
-    /* TESTIMONIALS */
+    /* =========================================================
+       TESTIMONIALS
+    ========================================================= */
 
     .testimonial-grid {
       display: grid;
-      gap: 16px;
+      grid-template-columns: minmax(0,1fr);
+      gap: 18px;
     }
 
     .testimonial {
+      position: relative;
       display: flex;
       flex-direction: column;
-      min-width: 0;
-      padding: 25px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--card);
+      padding: 27px;
+    }
+
+    .star-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .star-row svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      fill: currentColor;
     }
 
     .quote-mark {
-      height: 44px;
+      height: 30px;
+      margin-bottom: 5px;
       color: var(--accent);
       font-family: var(--serif);
-      font-size: 70px;
+      font-size: 60px;
       line-height: 1;
+      opacity: .75;
     }
 
     .testimonial blockquote {
       flex: 1;
-      margin-block: 6px 23px;
+      margin-bottom: 25px;
       color: var(--body);
       font-family: var(--serif);
-      font-size: 21px;
-      line-height: 1.5;
-      letter-spacing: -.012em;
+      font-size: 16.5px;
+      font-style: normal;
+      line-height: 1.7;
+      letter-spacing: -.008em;
+    }
+
+    .testimonial blockquote em {
+      color: var(--ink);
+      font-style: italic;
     }
 
     .testimonial-author {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding-top: 18px;
-      border-top: 1px solid var(--hairline);
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
     }
 
     .avatar {
@@ -1238,19 +1687,14 @@
       height: 40px;
       flex-shrink: 0;
       border-radius: 50%;
-      background: #EAD9C7;
-      color: var(--accent-deep);
+      color: var(--paper);
+      background: linear-gradient(145deg,#8F3F21,#B4552F);
       font-family: var(--serif);
       font-size: 19px;
-    }
-
-    .testimonial:nth-child(2) .avatar {
-      background: #E3E7D8;
-      color: #4E583E;
-    }
-
-    .testimonial:nth-child(3) .avatar {
-      background: #EAD9D0;
+      line-height: 1;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.13),
+        0 3px 8px -5px rgba(143,63,33,.4);
     }
 
     .author-name {
@@ -1258,56 +1702,69 @@
       color: var(--ink);
       font-size: 14px;
       font-weight: 650;
+      line-height: 1.5;
     }
 
     .author-detail {
       display: block;
+      margin-top: 3px;
       color: var(--muted);
       font-size: 11px;
+      line-height: 1.5;
     }
 
     .testimonial-disclosure {
-      margin-top: 18px;
+      max-width: 80ch;
+      margin-top: 20px;
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.65;
     }
 
-    /* FAQ */
+    /* =========================================================
+       FAQ
+    ========================================================= */
 
     .faq-layout {
       display: grid;
-      gap: 28px;
+      grid-template-columns: minmax(0,1fr);
       align-items: start;
+      gap: 28px;
     }
 
     .faq-layout > * {
       min-width: 0;
     }
 
-    .faq-intro p {
-      margin-top: 16px;
-      max-width: 320px;
+    .faq-intro > p {
+      max-width: 46ch;
+      margin-top: 18px;
+      color: var(--intro);
+      font-size: 17.5px;
+      line-height: 1.7;
     }
 
     .faq-intro .text-link {
       display: inline-flex;
       align-items: center;
-      min-height: 44px;
       min-width: 44px;
-      margin-top: 12px;
+      min-height: 44px;
+      margin-top: 14px;
       color: var(--accent-deep);
       font-size: 14px;
       font-weight: 650;
+      line-height: 1.6;
       text-decoration: underline;
       text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
     }
 
     .faq-list {
-      border-top: 1px solid var(--hairline);
+      border-top: 1px solid var(--line);
     }
 
     .faq-item {
-      border-bottom: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--line);
     }
 
     .faq-question {
@@ -1316,16 +1773,17 @@
       justify-content: space-between;
       width: 100%;
       min-height: 44px;
-      gap: 16px;
-      padding: 22px 0;
+      gap: 18px;
+      padding: 24px 0;
       border: 0;
-      background: transparent;
       color: var(--ink);
+      background: transparent;
       font-family: var(--sans);
       font-size: 16px;
       font-weight: 600;
       line-height: 1.5;
       text-align: left;
+      transition: color .22s var(--ease);
     }
 
     .faq-question:hover {
@@ -1334,11 +1792,15 @@
 
     .faq-toggle {
       position: relative;
-      width: 27px;
-      height: 27px;
+      width: 30px;
+      height: 30px;
       flex-shrink: 0;
       border: 1px solid #D5C7B4;
       border-radius: 50%;
+      background: rgba(255,255,255,.35);
+      transition:
+        background-color .22s var(--ease),
+        border-color .22s var(--ease);
     }
 
     .faq-toggle::before,
@@ -1346,11 +1808,12 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 10px;
-      height: 1px;
+      width: 11px;
+      height: 1.6px;
+      border-radius: 2px;
       background: currentColor;
-      content: "";
       transform: translate(-50%,-50%);
+      content: "";
     }
 
     .faq-toggle::after {
@@ -1358,8 +1821,9 @@
     }
 
     .faq-question[aria-expanded="true"] .faq-toggle {
-      background: var(--soft);
       color: var(--accent-deep);
+      border-color: rgba(180,85,47,.2);
+      background: rgba(180,85,47,.08);
     }
 
     .faq-question[aria-expanded="true"] .faq-toggle::after {
@@ -1367,32 +1831,34 @@
     }
 
     .faq-answer {
-      padding: 0 35px 22px 0;
+      padding: 0 35px 25px 0;
     }
 
     .faq-answer p {
       color: var(--body);
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 15.5px;
+      line-height: 1.75;
     }
 
-    /* FOOTER */
+    /* =========================================================
+       FOOTER
+    ========================================================= */
 
     .site-footer {
-      padding-block: 42px 24px;
-      border-top: 1px solid var(--hairline);
-      background: var(--soft);
+      padding-block: 45px 26px;
+      border-top: 1px solid var(--line);
+      background: var(--paper);
     }
 
     .footer-main {
       display: flex;
       flex-direction: column;
-      gap: 26px;
-      padding-bottom: 28px;
+      gap: 27px;
+      padding-bottom: 29px;
     }
 
     .footer-brand p {
-      margin-top: 13px;
+      margin-top: 14px;
       font-size: 14px;
     }
 
@@ -1416,28 +1882,108 @@
     .footer-links a:hover {
       color: var(--accent-deep);
       text-decoration: underline;
+      text-underline-offset: 4px;
     }
 
     .footer-bottom {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 8px 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--hairline);
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
     }
 
     .footer-bottom p {
       color: var(--muted);
       font-size: 11px;
+      line-height: 1.6;
     }
 
-    /* PROGRESSIVE SCROLL REVEAL */
+    /* =========================================================
+       MOBILE STICKY PURCHASE BAR
+    ========================================================= */
+
+    .mobile-buy-bar {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 60;
+      display: none;
+      min-height: calc(64px + env(safe-area-inset-bottom,0px));
+      padding-bottom: env(safe-area-inset-bottom,0px);
+      border-top: 1px solid var(--line);
+      background: rgba(250,246,239,.96);
+      box-shadow: 0 -8px 30px -24px rgba(28,26,23,.4);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+
+    .mobile-buy-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 64px;
+    }
+
+    .mobile-price {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 5px;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .mobile-price strong {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 27px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+
+    .mobile-bar-button {
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: 10px 17px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .mobile-bar-button .arrow {
+      width: 15px;
+      height: 15px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-bottom:
+          calc(80px + env(safe-area-inset-bottom,0px));
+      }
+
+      .mobile-buy-bar.is-visible:not([hidden]) {
+        display: block;
+      }
+    }
+
+    /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
 
     .reveal-pending {
       opacity: 0;
       transform: translateY(12px);
-      transition: opacity .55s ease, transform .55s ease;
+      transition:
+        opacity .55s var(--ease),
+        transform .55s var(--ease),
+        box-shadow .22s var(--ease),
+        translate .22s var(--ease);
     }
 
     .reveal-visible,
@@ -1446,9 +1992,15 @@
       transform: translateY(0);
     }
 
-    /* MOBILE */
+    /* =========================================================
+       MOBILE
+    ========================================================= */
 
     @media (max-width: 480px) {
+      :root {
+        --section-space: 66px;
+      }
+
       .site-header {
         height: 60px;
       }
@@ -1462,19 +2014,50 @@
       }
 
       .site-header .wordmark {
-        font-size: 17px;
-        gap: 7px;
+        flex-shrink: 1;
+        min-width: 0;
+        gap: 6px;
+        font-size: 15px;
       }
 
       .site-header .brand-icon {
-        width: 26px;
-        height: 26px;
+        width: 23px;
+        height: 23px;
+      }
+
+      .header-actions {
+        gap: 9px;
       }
 
       .header-buy {
         min-height: 44px;
         padding: 10px 14px;
         font-size: 14px;
+      }
+
+      .langs {
+        gap: 6px;
+      }
+
+      .lang {
+        height: 30px;
+        min-height: 30px;
+        padding: 5px 6px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        letter-spacing: .08em;
+      }
+
+      .hero {
+        padding-block: 44px 60px;
+      }
+
+      .hero h1 {
+        font-size: clamp(39px,10.5vw,47px);
+      }
+
+      .hero-description {
+        font-size: 17px;
       }
 
       .hero-actions {
@@ -1500,26 +2083,117 @@
         margin-bottom: 10px;
       }
 
+      .section-kicker {
+        gap: 8px;
+        margin-bottom: 13px;
+      }
+
+      .section-kicker .eyebrow {
+        font-size: 11px;
+        letter-spacing: .08em;
+      }
+
+      .section-kicker::before {
+        width: 24px;
+      }
+
       .product-stage {
         --mock-scale: .62;
         --stage-height: 295px;
         max-height: 320px;
       }
 
-      .mockup-composition {
-        transform: scale(var(--mock-scale,.62));
-        transform-origin: top center;
-        overflow: visible;
-      }
-
-      .form-submit .icon,
-      .price-card .button .icon {
-        width: 15px;
-        height: 15px;
-      }
-
       .product-caption {
         gap: 4px 12px;
+      }
+
+      .week-paper-header {
+        gap: 8px;
+        padding: 16px 14px;
+      }
+
+      .week-paper-header small {
+        font-size: 9px;
+        letter-spacing: .06em;
+      }
+
+      .pdf-label {
+        font-size: 9.5px;
+      }
+
+      .week-paper-body {
+        padding: 18px 12px 16px;
+      }
+
+      /*
+        The desktop day column is 84px.
+        On narrow phones it becomes 38px so dinner names and
+        tags have sufficient room without horizontal scrolling.
+      */
+
+      .meal-table col.day-col {
+        width: 38px;
+      }
+
+      .meal-table col.time-col {
+        width: 88px;
+      }
+
+      .meal-table th,
+      .meal-table td {
+        padding: 15px 5px;
+      }
+
+      .meal-table tbody th {
+        font-size: 11px;
+        letter-spacing: .09em;
+      }
+
+      .meal-table .dish-name {
+        font-size: 15.5px;
+      }
+
+      .time-pill {
+        padding: 4px 7px;
+        font-size: 11.5px;
+      }
+
+      .meal-tag {
+        gap: 3px;
+        font-size: 9px;
+      }
+
+      .meal-tag .icon {
+        width: 11px;
+        height: 11px;
+      }
+
+      .meal-tag-vegetarian span {
+        overflow-wrap: anywhere;
+      }
+
+      .stats-heading .section-kicker {
+        flex-wrap: nowrap;
+      }
+
+      .feature-card {
+        padding: 26px;
+      }
+
+      .sample-panel {
+        padding: 28px 22px;
+      }
+
+      .form-card {
+        padding: 25px 20px;
+      }
+
+      .testimonial {
+        padding: 25px;
+      }
+
+      .mobile-bar-button {
+        padding-inline: 14px;
       }
     }
 
@@ -1532,25 +2206,37 @@
         display: none;
       }
 
+      .header-buy {
+        padding-inline: 10px;
+      }
+
       .hero h1 {
-        font-size: 40px;
+        font-size: 39px;
       }
 
       .product-stage {
         --mock-scale: .60;
-        --stage-height: 286px;
+        --stage-height: 285px;
       }
 
       .sample-panel {
-        padding: 26px 20px;
+        padding-inline: 19px;
       }
 
       .form-card {
-        padding-inline: 18px;
+        padding-inline: 17px;
       }
 
       .price-card {
-        padding-inline: 22px;
+        padding-inline: 23px;
+      }
+
+      .meal-table col.time-col {
+        width: 84px;
+      }
+
+      .mobile-price {
+        gap: 4px;
       }
     }
 
@@ -1559,23 +2245,38 @@
         width: calc(100% - 28px);
       }
 
+      .header-inner {
+        gap: 8px;
+      }
+
       .site-header .wordmark {
-        font-size: 16px;
+        gap: 5px;
+        font-size: 14px;
       }
 
       .site-header .brand-icon {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .header-actions {
+        gap: 7px;
+      }
+
+      .header-buy {
+        padding-inline: 8px;
+        font-size: 13px;
       }
 
       .hero h1 {
-        font-size: 37px;
+        font-size: 36px;
       }
 
       .hero-actions .button,
       .form-submit,
       .price-card .button {
         padding-inline: 10px;
+        font-size: 14px;
       }
 
       .product-stage {
@@ -1583,16 +2284,32 @@
         --stage-height: 254px;
       }
 
-      .meal-table th:first-child {
-        width: 20%;
+      .meal-table col.day-col {
+        width: 32px;
       }
 
-      .meal-table th:last-child {
-        width: 25%;
+      .meal-table col.time-col {
+        width: 76px;
+      }
+
+      .meal-table .dish-name {
+        font-size: 14px;
+      }
+
+      .meal-tag {
+        font-size: 8.5px;
+      }
+
+      .mobile-bar-button {
+        gap: 7px;
+        padding-inline: 11px;
+        font-size: 13px;
       }
     }
 
-    /* LARGE MOBILE / SMALL TABLET */
+    /* =========================================================
+       LARGE MOBILE / SMALL TABLET
+    ========================================================= */
 
     @media (min-width: 481px) {
       .container {
@@ -1613,17 +2330,8 @@
         padding: 35px;
       }
 
-      .week-paper {
-        padding: 28px;
-      }
-
-      .meal-table {
-        font-size: 14px;
-      }
-
-      .meal-table th,
-      .meal-table td {
-        padding-block: 15px;
+      .week-paper-body {
+        padding: 26px 24px 24px;
       }
 
       .product-stage {
@@ -1637,42 +2345,49 @@
         --mock-scale: 1;
         --stage-height: 472px;
       }
+
+      .feature-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
     }
 
-    /* TABLET */
+    /* =========================================================
+       TABLET
+    ========================================================= */
 
     @media (min-width: 768px) {
       :root {
         --header-height: 72px;
+        --section-space: 90px;
       }
 
       .container {
         width: min(calc(100% - 80px),1180px);
       }
 
-      .section {
-        padding-block: 88px;
-      }
-
       .section-heading {
-        margin-bottom: 42px;
+        margin-bottom: 44px;
       }
 
       .eyebrow {
         margin-bottom: 14px;
       }
 
+      .section-kicker {
+        margin-bottom: 17px;
+      }
+
+      .section-kicker .eyebrow {
+        margin-bottom: 0;
+      }
+
       .header-inner {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        height: 100%;
+        gap: 16px;
       }
 
       .main-nav {
         display: flex;
-        gap: 18px;
+        gap: 14px;
       }
 
       .header-buy {
@@ -1686,7 +2401,7 @@
       }
 
       .hero {
-        padding-block: 75px 80px;
+        padding-block: 78px 85px;
       }
 
       .hero-grid {
@@ -1698,11 +2413,7 @@
       }
 
       .hero h1 {
-        font-size: clamp(43px,5.7vw,76px);
-      }
-
-      .hero-description {
-        font-size: 18px;
+        font-size: clamp(43px,5.5vw,75px);
       }
 
       .hero-actions {
@@ -1724,32 +2435,51 @@
       }
 
       .feature-grid {
-        grid-template-columns:
-          repeat(2,minmax(0,1fr));
-        gap: 18px;
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        gap: 20px;
       }
 
       .feature-card {
-        padding: 28px;
+        padding: 29px;
       }
 
       .week-layout {
         grid-template-columns:
-          minmax(0,.85fr)
-          minmax(0,1.15fr);
+          minmax(0,.82fr)
+          minmax(0,1.18fr);
         gap: 40px;
       }
 
+      .week-paper-header {
+        padding: 18px 19px;
+      }
+
+      .week-paper-body {
+        padding: 24px 17px 20px;
+      }
+
+      .meal-table col.day-col {
+        width: 54px;
+      }
+
+      .meal-table col.time-col {
+        width: 100px;
+      }
+
+      .meal-table th,
+      .meal-table td {
+        padding-inline: 7px;
+      }
+
       .stats-grid {
-        grid-template-columns:
-          repeat(3,minmax(0,1fr));
+        grid-template-columns: repeat(3,minmax(0,1fr));
         gap: 0;
       }
 
       .stat {
-        padding: 10px 16px;
+        padding: 10px 17px;
         border-bottom: 0;
-        border-right: 1px solid var(--hairline);
+        border-right: 1px solid var(--line);
       }
 
       .stat:last-child {
@@ -1763,7 +2493,7 @@
           minmax(0,.9fr);
         align-items: center;
         gap: 30px;
-        padding: 35px;
+        padding: 36px;
       }
 
       .pricing-grid {
@@ -1774,20 +2504,16 @@
       }
 
       .price-card {
-        padding: 34px;
+        padding: 35px;
       }
 
       .testimonial-grid {
-        grid-template-columns:
-          repeat(3,minmax(0,1fr));
+        grid-template-columns: repeat(3,minmax(0,1fr));
+        gap: 16px;
       }
 
       .testimonial {
-        padding: 21px;
-      }
-
-      .testimonial blockquote {
-        font-size: 19px;
+        padding: 23px;
       }
 
       .faq-layout {
@@ -1799,25 +2525,71 @@
 
       .footer-main {
         flex-direction: row;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
       }
     }
 
-    /* DESKTOP */
+    @media (min-width: 768px) and (max-width: 900px) {
+      .site-header .wordmark {
+        gap: 6px;
+        font-size: 16px;
+      }
+
+      .site-header .brand-icon {
+        width: 25px;
+        height: 25px;
+      }
+
+      .header-inner {
+        gap: 10px;
+      }
+
+      .main-nav {
+        gap: 10px;
+      }
+
+      .main-nav a {
+        font-size: 12px;
+      }
+
+      .header-actions {
+        gap: 8px;
+      }
+
+      .header-buy {
+        padding-inline: 10px;
+        font-size: 12px;
+      }
+
+      .lang {
+        padding-inline: 7px;
+      }
+
+      .price-card .button {
+        padding-inline: 14px;
+      }
+    }
+
+    /* =========================================================
+       DESKTOP
+    ========================================================= */
 
     @media (min-width: 1024px) {
-      .section {
-        padding-block: 100px;
+      :root {
+        --section-space: 108px;
       }
 
       .hero {
-        padding-block: 84px 95px;
+        padding-block: 90px 104px;
       }
 
       .hero-grid {
         gap: 65px;
-        align-items: start;
+      }
+
+      .hero-description {
+        margin-top: 27px;
       }
 
       .hero-actions {
@@ -1828,43 +2600,71 @@
         width: auto;
       }
 
-      .product-stage {
-        --mock-scale: .76;
-        --stage-height: 362px;
-      }
-
       .main-nav {
-        gap: 32px;
+        gap: 26px;
       }
 
       .header-buy {
         padding-inline: 18px;
       }
 
+      .product-stage {
+        --mock-scale: .76;
+        --stage-height: 362px;
+      }
+
       .feature-grid {
-        grid-template-columns:
-          repeat(3,minmax(0,1fr));
+        grid-template-columns: repeat(3,minmax(0,1fr));
+        gap: 22px;
       }
 
       .feature-card {
-        padding: 30px;
+        padding: 32px;
       }
 
       .week-layout {
-        gap: 85px;
+        grid-template-columns:
+          minmax(0,.82fr)
+          minmax(0,1.18fr);
+        gap: 75px;
       }
 
-      .week-paper {
-        padding: 33px;
+      .week-paper-header {
+        padding: 22px 28px;
+      }
+
+      .week-paper-body {
+        padding: 29px 26px 25px;
+      }
+
+      .meal-table col.day-col {
+        width: 84px;
+      }
+
+      .meal-table col.time-col {
+        width: 114px;
+      }
+
+      .meal-table th,
+      .meal-table td {
+        padding: 17px 10px;
+      }
+
+      .meal-table thead th {
+        padding-block: 12px;
+      }
+
+      .stats-section {
+        padding-block: 76px;
       }
 
       .sample-panel {
-        padding: 52px;
+        padding: 55px;
         gap: 65px;
       }
 
       .form-card {
-        padding: 32px;
+        padding: 34px;
       }
 
       .pricing-grid {
@@ -1872,15 +2672,15 @@
       }
 
       .price-card {
-        padding: 42px;
+        padding: 44px;
+      }
+
+      .testimonial-grid {
+        gap: 22px;
       }
 
       .testimonial {
-        padding: 29px;
-      }
-
-      .testimonial blockquote {
-        font-size: 22px;
+        padding: 30px;
       }
 
       .faq-layout {
@@ -1889,20 +2689,36 @@
     }
 
     @media (min-width: 1280px) {
+      .hero-grid {
+        gap: 70px;
+      }
+
       .product-stage {
         --mock-scale: .98;
         --stage-height: 463px;
       }
+
+      .feature-card {
+        padding: 34px;
+      }
+
+      .week-layout {
+        gap: 90px;
+      }
     }
 
-    /* REDUCED MOTION */
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
 
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
       }
 
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         animation: none !important;
         transition: none !important;
       }
@@ -1911,24 +2727,39 @@
         opacity: 1;
         transform: none;
       }
+
+      .paper-card:hover,
+      .price-card:hover {
+        translate: none;
+      }
+
+      .button:hover .arrow,
+      .button:active {
+        transform: none;
+      }
     }
 
-    /* PRINT */
+    /* =========================================================
+       PRINT
+    ========================================================= */
 
     @media print {
+      body {
+        padding-bottom: 0;
+        color: black;
+        background: white;
+        font-size: 12pt;
+      }
+
+      body::before,
       .site-header,
       .hero-actions,
       .sample-panel,
       .price-card .button,
       .site-footer,
-      .skip-link {
-        display: none;
-      }
-
-      body {
-        background: white;
-        color: black;
-        font-size: 12pt;
+      .skip-link,
+      .mobile-buy-bar {
+        display: none !important;
       }
 
       .section {
@@ -1959,65 +2790,65 @@
       }
     }
   </style>
-
-  <style>
-    /* Language switcher (перенесено з української версії, той самий дизайн) */
-    .langs { display:inline-flex; align-items:center; justify-content:center; gap:6px; flex-shrink:0; }
-    .lang {
-      position:relative; display:inline-flex; align-items:center; justify-content:center;
-      min-height:34px; padding:6px 9px; border:1px solid #E4DCCE; border-radius:8px;
-      color:#3A362F; background:#FFFFFF; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-      font-size:12.5px; font-weight:600; line-height:1.2; letter-spacing:.08em; text-transform:uppercase;
-      text-decoration:none; cursor:pointer; transition:background .16s ease, color .16s ease, border-color .16s ease;
-    }
-    .lang.is-active { background:#1C1A17; border-color:#1C1A17; color:#FAF6EF; cursor:default; }
-    a.lang:hover { background:#1C1A17; border-color:#1C1A17; color:#FAF6EF; }
-    @media (max-width: 480px) {
-      .langs { gap:6px; }
-      .lang { min-height:30px; height:30px; padding:5px 6px; font-size:12.5px; }
-    }
-    @media (max-width: 360px) { .lang { padding-inline:7px; } }
-  </style>
 </head>
 
 <body>
 
   <!--
-    Deployment notes:
+    PRE-LAUNCH NOTES
 
-    1. Replace the generic Gumroad URL with the actual product checkout URL.
-    2. Connect the sample form to an email delivery service before accepting leads.
-       The current form demonstrates validation and confirmation only.
-    3. Testimonials are explicitly labeled illustrative scenarios, not verified
-       customer reviews. Replace them with authentic, authorized testimonials.
-    4. The sample menu and illustrated product cover are illustrative;
-       verify them against the final PDF.
-    5. Confirm the supplied $24 reference price and included product materials.
-    6. Publish actual Privacy, Terms, Contact, and refund information before launch.
+    1. Replace the generic Gumroad URL with the actual
+       product checkout URL.
 
-    Mobile and polish revision:
+    2. Connect an email delivery service to the sample form.
+       The current form validates email addresses and displays
+       a local confirmation, but does not send emails.
 
-    - Single-row 60px mobile header and 72px desktop header.
-    - Mobile navigation hidden; the price suffix is hidden at 380px and below.
-    - Navigation remains hidden at intermediate widths below 768px to prevent
-      overcrowding within the fixed-height header.
-    - Anchored sections have an 80px scroll margin.
-    - Body copy uses #3A362F; muted metadata retains #6E675C.
-    - Mobile hero buttons are full-width, with a 14px vertical gap.
-    - Eyebrow spacing is 10px on mobile and 14px on desktop.
-    - The mobile mockup scales to .62 at 390px, with additional scaling
-      for narrower screens and a maximum stage height of 320px.
-    - Mockup cards have been repositioned slightly to reduce text obstruction.
-    - Interactive controls have minimum 44px touch targets.
-    - Inline SVG favicon and Pinterest-friendly metadata added.
-    - Original copy, section order, CTA contract, form IDs, and FAQ retained.
+    3. Testimonials remain fictional illustrative scenarios.
+       Stars are decorative elements, not verified customer
+       ratings. Replace these examples with authentic,
+       authorized customer testimonials before publication.
 
-    The page makes no external network requests on load.
-    Browser-based verification at all target viewport widths has not
-    been performed in this response.
+    4. Verify that the illustrative menu, vegetarian labels,
+       cooking times, and cover mockup match the actual PDF.
+
+    5. Confirm that $24 is the genuine reference price.
+
+    6. Publish actual sales terms, refund terms, privacy
+       information, and contact details.
+
+    7. Save this English version as en.html alongside the
+       Ukrainian version, index.html. The UA link opens
+       that local file.
+
+    8. The email delivery statement assumes the payment
+       provider is configured to deliver the PDF by email.
+
+    9. The editorial numbering matches the Ukrainian source:
+       sections 01–08, including the FAQ.
+
+    10. Day column widths adapt to narrow screens.
+        Desktop retains the original 84px width.
+
+    11. Independent CSS translate handles card hover lift
+        without conflicting with scroll reveal transforms.
+
+    12. Decorative stars are not exposed to assistive
+        technology as verified customer ratings.
+
+    CSS, layout, section IDs, and JavaScript behavior are
+    retained from the Ukrainian source. Only language,
+    localization metadata, and language-switcher destinations
+    have been changed.
+
+    The page uses no external fonts, CSS, JS, or images.
+    Automated browser, viewport, console, and network testing
+    has not been performed for this translated version.
   -->
 
-  <!-- LOCAL SVG ICON LIBRARY -->
+  <!-- =======================================================
+       LOCAL SVG ICON LIBRARY
+  ======================================================== -->
 
   <svg xmlns="http://www.w3.org/2000/svg"
        width="0"
@@ -2079,11 +2910,20 @@
         <path d="m3 7 9 6 9-6"/>
       </symbol>
 
+      <symbol id="i-leaf" viewBox="0 0 24 24">
+        <path d="M20 4C8 4 4 10 5 16c6 5 15 0 15-12Z"/>
+        <path d="M4 21 15 10"/>
+      </symbol>
+
+      <symbol id="i-star" viewBox="0 0 24 24">
+        <path d="m12 2.4 2.95 6.02 6.65.96-4.8 4.68 1.13 6.62L12 17.55l-5.93 3.13 1.13-6.62L2.4 9.38l6.65-.96L12 2.4Z"/>
+      </symbol>
+
       <symbol id="i-brand" viewBox="0 0 32 32">
 
         <g fill="none"
            stroke="currentColor"
-           stroke-width="1.4"
+           stroke-width="1.6"
            stroke-linecap="round"
            stroke-linejoin="round">
 
@@ -2097,14 +2937,15 @@
       </symbol>
 
     </defs>
-
   </svg>
 
   <a class="skip-link" href="#main">
-    Skip to content
+    Skip to main content
   </a>
 
-  <!-- 01. HEADER -->
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
 
   <header class="site-header" id="header">
 
@@ -2130,29 +2971,32 @@
 
       </nav>
 
-      <a class="button button-primary header-buy"
-         href="#buy"
-         data-cta="buy"
-         aria-label="Get the plan — $12">
+      <div class="header-actions">
 
-        Get the plan<span class="btn-long">— $12</span>
+        <a class="button button-primary header-buy"
+           href="#buy"
+           data-cta="buy"
+           aria-label="Get the dinner plan for 12 dollars">
 
-      </a>
+          Get the plan<span class="btn-long">— $12</span>
 
-      <div class="langs" role="group" aria-label="Site language">
+        </a>
 
-        <a class="lang"
-           href="index.html"
-           hreflang="uk"
-           lang="uk"
-           aria-label="Перейти на українську">UA</a>
+        <div class="langs"
+             role="group"
+             aria-label="Site language">
 
-        <span class="lang is-active"
-              aria-current="true"
-              lang="en"
-              aria-label="English">
-          EN
-        </span>
+          <span class="lang is-active"
+                aria-current="true"
+                lang="en">EN</span>
+
+          <a class="lang"
+             href="index.html"
+             hreflang="uk"
+             lang="uk"
+             aria-label="Перейти на українську">UA</a>
+
+        </div>
 
       </div>
 
@@ -2162,9 +3006,11 @@
 
   <main id="main">
 
-    <!-- 02. HERO -->
+    <!-- =====================================================
+         01. HERO
+    ====================================================== -->
 
-    <section class="hero"
+    <section class="hero band-paper"
              id="top"
              aria-labelledby="hero-title">
 
@@ -2172,16 +3018,19 @@
 
         <div class="hero-copy">
 
-          <div class="eyebrow">FOR BUSY MOMS</div>
+          <div class="section-kicker">
+            <span class="section-index" aria-hidden="true">01</span>
+            <div class="eyebrow">For busy moms</div>
+          </div>
 
           <h1 id="hero-title">
             Dinner is decided for the next <em>4 weeks.</em>
           </h1>
 
           <p class="hero-description">
-            No more staring into the fridge at 5 p.m.
-            Get four weeks of easy family dinners, ready-made
-            grocery lists, and a prep plan that fits your workweek.
+            No more wondering what to cook every evening.
+            Get a ready-made family menu, grocery lists,
+            and a prep-ahead plan that fits your workweek.
           </p>
 
           <div class="hero-actions">
@@ -2192,14 +3041,17 @@
 
               Get the 4-week plan — $12
 
-              <svg class="icon" aria-hidden="true">
+              <svg class="arrow" aria-hidden="true">
                 <use href="#i-arrow"></use>
               </svg>
 
             </a>
 
-            <a class="button button-secondary" href="#sample">
+            <a class="button button-secondary"
+               href="#sample">
+
               Try 3 days free
+
             </a>
 
           </div>
@@ -2223,210 +3075,214 @@
           <div class="product-stage"
                id="product-stage"
                role="img"
-               aria-label="Illustrated product preview showing a paper-covered four-week dinner plan book, an overlapping six-item grocery checklist, and a recipe card behind the book.">
+               aria-label="Illustrated preview of The 4-Week Dinner Plan featuring a recipe book, a dinner recipe card, and a six-item grocery checklist.">
 
             <div class="mockup-composition" aria-hidden="true">
 
-              <!-- Back layer: recipe card -->
+              <div class="mockup-canvas">
 
-              <div class="recipe-card-mock">
+                <!-- Back layer -->
 
-                <div class="recipe-card-content">
+                <div class="recipe-card-mock">
 
-                  <strong>Lemon chicken &amp; rice</strong>
+                  <div class="recipe-card-content">
 
-                  <small>Family dinner / 25 min</small>
-                  <small>Lemon, garlic, chicken</small>
-                  <small>Serve with fluffy rice</small>
+                    <strong>Chicken &amp; buckwheat</strong>
+
+                    <small>Family dinner · 30 min</small>
+                    <small>Chicken, buckwheat, mushrooms</small>
+                    <small>Serve warm</small>
+
+                  </div>
 
                 </div>
 
-              </div>
+                <!-- Main book -->
 
-              <!-- Middle layer: main book -->
+                <div class="book">
 
-              <div class="book">
+                  <div class="book-kicker">
+                    The 4-Week Dinner Plan
+                  </div>
 
-                <div class="book-kicker">
-                  THE 4-WEEK DINNER PLAN
+                  <div class="book-title">
+                    28 dinners,
+                    <span>4 weeks</span>
+                  </div>
+
+                  <svg class="book-art"
+                       viewBox="0 0 220 220"
+                       xmlns="http://www.w3.org/2000/svg"
+                       aria-hidden="true">
+
+                    <defs>
+
+                      <radialGradient id="plate-fill"
+                                      cx=".35"
+                                      cy=".25"
+                                      r=".8">
+
+                        <stop offset="0" stop-color="#FFFFFF"/>
+                        <stop offset=".75" stop-color="#F1EBDF"/>
+                        <stop offset="1" stop-color="#D9CEBA"/>
+
+                      </radialGradient>
+
+                      <linearGradient id="tomato-fill"
+                                      x1="0"
+                                      y1="0"
+                                      x2="1"
+                                      y2="1">
+
+                        <stop offset="0" stop-color="#D88B5F"/>
+                        <stop offset="1" stop-color="#A9472F"/>
+
+                      </linearGradient>
+
+                    </defs>
+
+                    <ellipse cx="115"
+                             cy="120"
+                             rx="97"
+                             ry="94"
+                             fill="#BDAA90"
+                             opacity=".24"/>
+
+                    <circle cx="110"
+                            cy="110"
+                            r="96"
+                            fill="url(#plate-fill)"
+                            stroke="#D2C5B0"/>
+
+                    <circle cx="110"
+                            cy="110"
+                            r="77"
+                            fill="#F9F4EA"
+                            stroke="#DBD1C0"/>
+
+                    <g fill="none"
+                       stroke="#D8AA60"
+                       stroke-width="8"
+                       stroke-linecap="round">
+
+                      <path d="M65 91c25-34 85-22 83 5s-69 48-67 11 88-30 76 9-78 52-94 16"/>
+
+                      <path d="M76 72c39-13 80 10 66 37S65 143 72 119s69-34 77-6-26 43-55 35"/>
+
+                      <path d="M61 113c15-32 80-45 97-16s-45 66-76 46 23-67 56-58"/>
+
+                    </g>
+
+                    <g fill="none"
+                       stroke="#F0CC8A"
+                       stroke-width="4"
+                       stroke-linecap="round">
+
+                      <path d="M65 90c36-28 79-11 77 13s-65 39-62 4 84-22 73 13"/>
+
+                      <path d="M74 124c-5-30 58-47 72-20s-29 51-49 39"/>
+
+                      <path d="M65 113c19-26 61-43 83-26"/>
+
+                    </g>
+
+                    <g fill="url(#tomato-fill)"
+                       stroke="#A44D36"
+                       stroke-width="1">
+
+                      <circle cx="78" cy="84" r="13"/>
+                      <circle cx="145" cy="89" r="14"/>
+                      <circle cx="114" cy="145" r="12"/>
+                      <circle cx="150" cy="137" r="9"/>
+                      <circle cx="91" cy="118" r="10"/>
+
+                    </g>
+
+                    <g fill="#E3A280" opacity=".8">
+
+                      <ellipse cx="74" cy="80" rx="5" ry="3"/>
+                      <ellipse cx="141" cy="84" rx="5" ry="3"/>
+                      <ellipse cx="110" cy="141" rx="4" ry="3"/>
+
+                    </g>
+
+                    <g fill="#748252"
+                       stroke="#55663D"
+                       stroke-width=".7">
+
+                      <path d="M110 62c-22 0-26 18-13 26 16-2 22-16 13-26Z"/>
+
+                      <path d="M110 62c15-16 31-10 30 2-8 13-24 13-30-2Z"/>
+
+                      <path d="M68 135c-17-15-31-7-27 8 10 13 22 9 27-8Z"/>
+
+                      <path d="M153 113c5-22 26-21 31-8-4 14-20 18-31 8Z"/>
+
+                      <path d="M130 156c10 18 27 11 25-2-10-13-22-10-25 2Z"/>
+
+                    </g>
+
+                    <g fill="none"
+                       stroke="#B2B78B"
+                       stroke-width="1">
+
+                      <path d="m100 80 10-18m0 0 20-1M68 135l-19 6M155 113l23-6M130 156l18 5"/>
+
+                    </g>
+
+                    <g fill="#F5E6C5">
+
+                      <path d="m81 100 12-3 4 5-13 4Z"/>
+                      <path d="m117 101 16 1-1 5-16-2Z"/>
+                      <path d="m107 126 9-7 5 3-10 8Z"/>
+                      <path d="m139 126 10-4 2 4-12 5Z"/>
+                      <path d="m86 145 10-3 3 4-12 5Z"/>
+
+                    </g>
+
+                    <g fill="#75603D" opacity=".75">
+
+                      <circle cx="98" cy="94" r="1.5"/>
+                      <circle cx="131" cy="120" r="1.5"/>
+                      <circle cx="107" cy="113" r="1.5"/>
+                      <circle cx="122" cy="83" r="1.5"/>
+                      <circle cx="86" cy="132" r="1.5"/>
+                      <circle cx="138" cy="149" r="1.5"/>
+
+                    </g>
+
+                  </svg>
+
+                  <div class="book-edition">
+                    48-page PDF
+                  </div>
+
                 </div>
 
-                <div class="book-title">
-                  28 dinners,
-                  <span>4 weeks</span>
+                <!-- Foreground layer -->
+
+                <div class="mock-sheet">
+
+                  <div class="sheet-kicker">
+                    Week one
+                  </div>
+
+                  <div class="sheet-title">
+                    Grocery list
+                  </div>
+
+                  <ul class="sheet-list">
+
+                    <li class="sheet-row">Chicken breasts</li>
+                    <li class="sheet-row">Buckwheat &amp; rice</li>
+                    <li class="sheet-row">Fresh tomatoes</li>
+                    <li class="sheet-row">Mushrooms</li>
+                    <li class="sheet-row">Potatoes</li>
+                    <li class="sheet-row">Seasonal vegetables</li>
+
+                  </ul>
+
                 </div>
-
-                <svg class="book-art"
-                     viewBox="0 0 220 220"
-                     xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true">
-
-                  <defs>
-
-                    <radialGradient id="plate-fill"
-                                    cx=".35"
-                                    cy=".25"
-                                    r=".8">
-
-                      <stop offset="0" stop-color="#FFFFFF"/>
-                      <stop offset=".75" stop-color="#F1EBDF"/>
-                      <stop offset="1" stop-color="#D9CEBA"/>
-
-                    </radialGradient>
-
-                    <linearGradient id="tomato-fill"
-                                    x1="0"
-                                    y1="0"
-                                    x2="1"
-                                    y2="1">
-
-                      <stop offset="0" stop-color="#D88B5F"/>
-                      <stop offset="1" stop-color="#A9472F"/>
-
-                    </linearGradient>
-
-                  </defs>
-
-                  <ellipse cx="115"
-                           cy="120"
-                           rx="97"
-                           ry="94"
-                           fill="#BDAA90"
-                           opacity=".24"/>
-
-                  <circle cx="110"
-                          cy="110"
-                          r="96"
-                          fill="url(#plate-fill)"
-                          stroke="#D2C5B0"/>
-
-                  <circle cx="110"
-                          cy="110"
-                          r="77"
-                          fill="#F9F4EA"
-                          stroke="#DBD1C0"/>
-
-                  <g fill="none"
-                     stroke="#D8AA60"
-                     stroke-width="8"
-                     stroke-linecap="round">
-
-                    <path d="M65 91c25-34 85-22 83 5s-69 48-67 11 88-30 76 9-78 52-94 16"/>
-
-                    <path d="M76 72c39-13 80 10 66 37S65 143 72 119s69-34 77-6-26 43-55 35"/>
-
-                    <path d="M61 113c15-32 80-45 97-16s-45 66-76 46 23-67 56-58"/>
-
-                  </g>
-
-                  <g fill="none"
-                     stroke="#F0CC8A"
-                     stroke-width="4"
-                     stroke-linecap="round">
-
-                    <path d="M65 90c36-28 79-11 77 13s-65 39-62 4 84-22 73 13"/>
-
-                    <path d="M74 124c-5-30 58-47 72-20s-29 51-49 39"/>
-
-                    <path d="M65 113c19-26 61-43 83-26"/>
-
-                  </g>
-
-                  <g fill="url(#tomato-fill)"
-                     stroke="#A44D36"
-                     stroke-width="1">
-
-                    <circle cx="78" cy="84" r="13"/>
-                    <circle cx="145" cy="89" r="14"/>
-                    <circle cx="114" cy="145" r="12"/>
-                    <circle cx="150" cy="137" r="9"/>
-                    <circle cx="91" cy="118" r="10"/>
-
-                  </g>
-
-                  <g fill="#E3A280" opacity=".8">
-
-                    <ellipse cx="74" cy="80" rx="5" ry="3"/>
-                    <ellipse cx="141" cy="84" rx="5" ry="3"/>
-                    <ellipse cx="110" cy="141" rx="4" ry="3"/>
-
-                  </g>
-
-                  <g fill="#748252"
-                     stroke="#55663D"
-                     stroke-width=".7">
-
-                    <path d="M110 62c-22 0-26 18-13 26 16-2 22-16 13-26Z"/>
-
-                    <path d="M110 62c15-16 31-10 30 2-8 13-24 13-30-2Z"/>
-
-                    <path d="M68 135c-17-15-31-7-27 8 10 13 22 9 27-8Z"/>
-
-                    <path d="M153 113c5-22 26-21 31-8-4 14-20 18-31 8Z"/>
-
-                    <path d="M130 156c10 18 27 11 25-2-10-13-22-10-25 2Z"/>
-
-                  </g>
-
-                  <g fill="none"
-                     stroke="#B2B78B"
-                     stroke-width="1">
-
-                    <path d="m100 80 10-18m0 0 20-1M68 135l-19 6M155 113l23-6M130 156l18 5"/>
-
-                  </g>
-
-                  <g fill="#F5E6C5">
-
-                    <path d="m81 100 12-3 4 5-13 4Z"/>
-                    <path d="m117 101 16 1-1 5-16-2Z"/>
-                    <path d="m107 126 9-7 5 3-10 8Z"/>
-                    <path d="m139 126 10-4 2 4-12 5Z"/>
-                    <path d="m86 145 10-3 3 4-12 5Z"/>
-
-                  </g>
-
-                  <g fill="#75603D" opacity=".75">
-
-                    <circle cx="98" cy="94" r="1.5"/>
-                    <circle cx="131" cy="120" r="1.5"/>
-                    <circle cx="107" cy="113" r="1.5"/>
-                    <circle cx="122" cy="83" r="1.5"/>
-                    <circle cx="86" cy="132" r="1.5"/>
-                    <circle cx="138" cy="149" r="1.5"/>
-
-                  </g>
-
-                </svg>
-
-                <div class="book-edition">
-                  48-page PDF
-                </div>
-
-              </div>
-
-              <!-- Foreground layer: grocery checklist -->
-
-              <div class="mock-sheet">
-
-                <div class="sheet-kicker">
-                  Week one
-                </div>
-
-                <div class="sheet-title">
-                  Grocery list
-                </div>
-
-                <ul class="sheet-list">
-
-                  <li class="sheet-row">Chicken breasts</li>
-                  <li class="sheet-row">Ground beef</li>
-                  <li class="sheet-row">Cherry tomatoes</li>
-                  <li class="sheet-row">Fresh lemons</li>
-                  <li class="sheet-row">Rice &amp; pasta</li>
-                  <li class="sheet-row">Mixed vegetables</li>
-
-                </ul>
 
               </div>
 
@@ -2436,8 +3292,8 @@
 
           <figcaption class="product-caption">
 
-            <span>Illustrated digital product preview</span>
-            <span>48-page PDF · 4 complete weeks</span>
+            <span>Illustrated product preview</span>
+            <span>48-page PDF · 4 weeks of meals</span>
 
           </figcaption>
 
@@ -2447,9 +3303,11 @@
 
     </section>
 
-    <!-- 03. WHAT'S INSIDE -->
+    <!-- =====================================================
+         02. WHAT'S INSIDE
+    ====================================================== -->
 
-    <section class="section section-soft"
+    <section class="section band-white"
              id="inside"
              aria-labelledby="inside-title">
 
@@ -2457,22 +3315,26 @@
 
         <div class="section-heading" data-reveal>
 
-          <div class="eyebrow">What's inside</div>
+          <div class="section-kicker">
+            <span class="section-index" aria-hidden="true">02</span>
+            <div class="eyebrow">What's inside</div>
+          </div>
 
           <h2 id="inside-title">
             Everything you need to get dinner on the table.
           </h2>
 
           <p>
-            One download replaces the recipe searches, scattered
-            shopping notes, and last-minute dinner decisions.
+            One file replaces dozens of saved recipes,
+            scattered grocery lists, and the daily struggle
+            to figure out what to cook.
           </p>
 
         </div>
 
         <div class="feature-grid">
 
-          <article class="feature-card" data-reveal>
+          <article class="feature-card paper-card" data-reveal>
 
             <div class="feature-icon">
 
@@ -2485,13 +3347,13 @@
             <h3>28 dinners, already decided</h3>
 
             <p>
-              Four complete weeks of family meals using ingredients
-              from your usual supermarket.
+              Four weeks of family meals made with ingredients
+              you can find at your regular supermarket.
             </p>
 
           </article>
 
-          <article class="feature-card" data-reveal>
+          <article class="feature-card paper-card" data-reveal>
 
             <div class="feature-icon">
 
@@ -2501,16 +3363,16 @@
 
             </div>
 
-            <h3>Shop once, with a list</h3>
+            <h3>One grocery trip a week</h3>
 
             <p>
-              Ready-made weekly grocery lists tell you what to buy
-              for the dinners ahead.
+              Ready-made weekly grocery lists help you remember
+              what you need and avoid extra trips to the store.
             </p>
 
           </article>
 
-          <article class="feature-card" data-reveal>
+          <article class="feature-card paper-card" data-reveal>
 
             <div class="feature-icon">
 
@@ -2523,13 +3385,13 @@
             <h3>Get ahead of the week</h3>
 
             <p>
-              A simple prep-ahead schedule helps you get the chopping
-              and other prep out of the way early.
+              A simple prep schedule tells you what to wash,
+              chop, and prepare ahead of time.
             </p>
 
           </article>
 
-          <article class="feature-card" data-reveal>
+          <article class="feature-card paper-card" data-reveal>
 
             <div class="feature-icon">
 
@@ -2542,13 +3404,13 @@
             <h3>Dinner in 30 minutes</h3>
 
             <p>
-              Every recipe takes 30 minutes or less, because weeknights
-              are busy enough already.
+              Every meal takes half an hour or less,
+              because you deserve some downtime after work, too.
             </p>
 
           </article>
 
-          <article class="feature-card" data-reveal>
+          <article class="feature-card paper-card" data-reveal>
 
             <div class="feature-icon">
 
@@ -2558,16 +3420,16 @@
 
             </div>
 
-            <h3>Lunchboxes made easier</h3>
+            <h3>Easy snacks and lunches</h3>
 
             <p>
-              Snack and lunch add-ons give you a few extra ideas
-              for those busy school and work days.
+              Extra ideas for school lunchboxes, snacks,
+              and lunches you can take to work.
             </p>
 
           </article>
 
-          <article class="feature-card" data-reveal>
+          <article class="feature-card paper-card" data-reveal>
 
             <div class="feature-icon">
 
@@ -2577,11 +3439,11 @@
 
             </div>
 
-            <h3>Keep the week in sight</h3>
+            <h3>Keep the menu in sight</h3>
 
             <p>
-              Printable planner pages make it easy to put the menu
-              on your fridge for everyone to see.
+              Print the weekly plan and put it on the fridge
+              so the whole family knows what's for dinner.
             </p>
 
           </article>
@@ -2592,131 +3454,301 @@
 
     </section>
 
-    <!-- 04. WEEK PREVIEW -->
+    <!-- =====================================================
+         03. WEEK PREVIEW
+    ====================================================== -->
 
-    <section class="section"
-             id="week-preview"
+    <section class="section band-cream"
+             id="week"
              aria-labelledby="week-title">
+
+      <div id="week-preview"></div>
 
       <div class="container week-layout">
 
         <div class="week-copy" data-reveal>
 
-          <div class="eyebrow">A look at one week</div>
+          <div class="section-kicker">
+            <span class="section-index" aria-hidden="true">03</span>
+            <div class="eyebrow">A look at one week</div>
+          </div>
 
           <h2 id="week-title">
-            Imagine knowing what's for dinner every single night.
+            Imagine knowing what's for dinner every night.
           </h2>
 
           <p>
-            Monday is chicken. Tuesday is tacos. Wednesday is pasta.
-            There's no need to come up with something new while
-            you're driving home from work.
+            Monday is chicken with buckwheat.
+            Tuesday is pasta. Wednesday is pumpkin soup.
+            No need to figure out dinner on your way home from work.
           </p>
 
           <p>
-            Familiar ingredients, straightforward recipes, and enough
-            variety to keep the week interesting.
+            Familiar ingredients, straightforward recipes,
+            and enough variety to keep meals interesting.
           </p>
 
           <div class="week-aside">
-            Every week ends with a one-page grocery list.
+            Every week ends with a ready-to-use,
+            one-page grocery list.
           </div>
 
         </div>
 
         <div data-reveal>
 
-          <figure class="week-paper">
+          <figure class="week-paper paper-card">
 
             <div class="week-paper-header">
 
-              <div>
-                <small>The weekly dinner menu</small>
-                <h3>Let's eat.</h3>
-              </div>
+              <small>Weekly dinner menu</small>
 
-              <span class="week-number" aria-hidden="true">
-                01
+              <span class="pdf-label">
+                PDF, 48 pages
               </span>
 
             </div>
 
-            <table class="meal-table"
-                   aria-label="Illustrative seven-day dinner menu">
+            <div class="week-paper-body">
 
-              <thead>
+              <div class="week-menu-title">
 
-                <tr>
-                  <th scope="col">Day</th>
-                  <th scope="col">What's cooking</th>
-                  <th scope="col">Time</th>
-                </tr>
+                <h3>Let's eat.</h3>
 
-              </thead>
+                <span class="week-number" aria-hidden="true">
+                  01
+                </span>
 
-              <tbody>
+              </div>
 
-                <tr>
-                  <th scope="row">Mon</th>
-                  <td>Lemon chicken &amp; rice</td>
-                  <td>25 min</td>
-                </tr>
+              <table class="meal-table"
+                     aria-label="Illustrative seven-day dinner menu">
 
-                <tr>
-                  <th scope="row">Tue</th>
-                  <td>Easy beef tacos</td>
-                  <td>20 min</td>
-                </tr>
+                <colgroup>
+                  <col class="day-col">
+                  <col class="dish-col">
+                  <col class="time-col">
+                </colgroup>
 
-                <tr>
-                  <th scope="row">Wed</th>
-                  <td>Creamy tomato pasta</td>
-                  <td>25 min</td>
-                </tr>
+                <thead>
 
-                <tr>
-                  <th scope="row">Thu</th>
-                  <td>Honey garlic chicken</td>
-                  <td>30 min</td>
-                </tr>
+                  <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">What's cooking</th>
+                    <th scope="col">Time</th>
+                  </tr>
 
-                <tr>
-                  <th scope="row">Fri</th>
-                  <td>Homemade flatbread pizzas</td>
-                  <td>20 min</td>
-                </tr>
+                </thead>
 
-                <tr>
-                  <th scope="row">Sat</th>
-                  <td>Sausage &amp; veggie skillet</td>
-                  <td>25 min</td>
-                </tr>
+                <tbody>
 
-                <tr>
-                  <th scope="row">Sun</th>
-                  <td>Turkey meatball bowls</td>
-                  <td>30 min</td>
-                </tr>
+                  <tr>
 
-              </tbody>
+                    <th scope="row">
+                      <abbr title="Monday" style="text-decoration:none">Mon</abbr>
+                    </th>
 
-            </table>
+                    <td class="dish-name">
+                      Chicken with buckwheat &amp; mushrooms
+                    </td>
 
-            <figcaption class="week-footer">
+                    <td class="meal-time">
 
-              <svg class="icon" aria-hidden="true">
-                <use href="#i-check"></use>
-              </svg>
+                      <div class="meal-tags">
+                        <span class="time-pill">30 min</span>
+                      </div>
 
-              One week. Seven dinners. No guessing.
+                    </td>
 
-            </figcaption>
+                  </tr>
+
+                  <tr>
+
+                    <th scope="row">
+                      <abbr title="Tuesday" style="text-decoration:none">Tue</abbr>
+                    </th>
+
+                    <td class="dish-name">
+                      Tomato basil pasta
+                    </td>
+
+                    <td class="meal-time">
+
+                      <div class="meal-tags">
+
+                        <span class="time-pill">20 min</span>
+
+                        <span class="meal-tag meal-tag-quick">
+
+                          <svg class="icon" aria-hidden="true">
+                            <use href="#i-clock"></use>
+                          </svg>
+
+                          <span>20 min or less</span>
+
+                        </span>
+
+                        <span class="meal-tag meal-tag-vegetarian">
+
+                          <svg class="icon" aria-hidden="true">
+                            <use href="#i-leaf"></use>
+                          </svg>
+
+                          <span>Vegetarian</span>
+
+                        </span>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                  <tr>
+
+                    <th scope="row">
+                      <abbr title="Wednesday" style="text-decoration:none">Wed</abbr>
+                    </th>
+
+                    <td class="dish-name">
+                      Pumpkin soup with croutons
+                    </td>
+
+                    <td class="meal-time">
+
+                      <div class="meal-tags">
+
+                        <span class="time-pill">25 min</span>
+
+                        <span class="meal-tag meal-tag-vegetarian">
+
+                          <svg class="icon" aria-hidden="true">
+                            <use href="#i-leaf"></use>
+                          </svg>
+
+                          <span>Vegetarian</span>
+
+                        </span>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                  <tr>
+
+                    <th scope="row">
+                      <abbr title="Thursday" style="text-decoration:none">Thu</abbr>
+                    </th>
+
+                    <td class="dish-name">
+                      Turkey patties with mashed potatoes
+                    </td>
+
+                    <td class="meal-time">
+
+                      <div class="meal-tags">
+                        <span class="time-pill">30 min</span>
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                  <tr>
+
+                    <th scope="row">
+                      <abbr title="Friday" style="text-decoration:none">Fri</abbr>
+                    </th>
+
+                    <td class="dish-name">
+                      Vegetable stew with beans
+                    </td>
+
+                    <td class="meal-time">
+
+                      <div class="meal-tags">
+
+                        <span class="time-pill">25 min</span>
+
+                        <span class="meal-tag meal-tag-vegetarian">
+
+                          <svg class="icon" aria-hidden="true">
+                            <use href="#i-leaf"></use>
+                          </svg>
+
+                          <span>Vegetarian</span>
+
+                        </span>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                  <tr>
+
+                    <th scope="row">
+                      <abbr title="Saturday" style="text-decoration:none">Sat</abbr>
+                    </th>
+
+                    <td class="dish-name">
+                      Baked lemon fish
+                    </td>
+
+                    <td class="meal-time">
+
+                      <div class="meal-tags">
+                        <span class="time-pill">25 min</span>
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                  <tr>
+
+                    <th scope="row">
+                      <abbr title="Sunday" style="text-decoration:none">Sun</abbr>
+                    </th>
+
+                    <td class="dish-name">
+                      Quick chicken pilaf
+                    </td>
+
+                    <td class="meal-time">
+
+                      <div class="meal-tags">
+                        <span class="time-pill">30 min</span>
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+              <figcaption class="week-footer">
+
+                <svg class="icon" aria-hidden="true">
+                  <use href="#i-check"></use>
+                </svg>
+
+                One week. Seven dinners. All planned.
+
+              </figcaption>
+
+            </div>
 
           </figure>
 
           <p class="preview-note">
-            Illustrative menu showing how a planned week can look.
+            An illustrative example of what a planned
+            week of dinners can look like.
           </p>
 
         </div>
@@ -2725,17 +3757,25 @@
 
     </section>
 
-    <!-- 05. BENEFITS IN NUMBERS -->
+    <!-- =====================================================
+         04. BENEFITS IN NUMBERS
+    ====================================================== -->
 
-    <section class="section section-soft stats-section"
+    <section class="section band-paper stats-section"
+             id="stats"
              aria-labelledby="stats-title">
 
       <div class="container">
 
         <div class="stats-heading" data-reveal>
 
+          <div class="section-kicker">
+            <span class="section-index" aria-hidden="true">04</span>
+            <div class="eyebrow">By the numbers</div>
+          </div>
+
           <h2 id="stats-title">
-            Fewer decisions. Easier evenings.
+            Less stress. Calmer evenings.
           </h2>
 
         </div>
@@ -2747,7 +3787,9 @@
             <span class="stat-value">28</span>
             <span class="stat-label">Dinners</span>
 
-            <p>One less decision every evening.</p>
+            <p>
+              No more figuring out a new menu every day.
+            </p>
 
           </div>
 
@@ -2756,16 +3798,20 @@
             <span class="stat-value">4</span>
             <span class="stat-label">Weeks</span>
 
-            <p>A whole month of meals planned.</p>
+            <p>
+              Almost a whole month with dinner already planned.
+            </p>
 
           </div>
 
           <div class="stat" data-reveal>
 
             <span class="stat-value">30</span>
-            <span class="stat-label">Min max</span>
+            <span class="stat-label">Minutes max</span>
 
-            <p>From getting started to serving.</p>
+            <p>
+              From getting started to serving dinner.
+            </p>
 
           </div>
 
@@ -2775,9 +3821,11 @@
 
     </section>
 
-    <!-- 06. FREE SAMPLE -->
+    <!-- =====================================================
+         05. FREE SAMPLE
+    ====================================================== -->
 
-    <section class="section"
+    <section class="section band-white"
              id="sample"
              aria-labelledby="sample-title">
 
@@ -2787,15 +3835,19 @@
 
           <div class="sample-copy">
 
-            <div class="eyebrow">Try it before you buy</div>
+            <div class="section-kicker">
+              <span class="section-index" aria-hidden="true">05</span>
+              <div class="eyebrow">Try it before you buy</div>
+            </div>
 
             <h2 id="sample-title">
               Take three nights of dinner planning off your plate.
             </h2>
 
             <p>
-              Start with the free 3-day sample. See how the recipes,
-              shopping list, and prep schedule fit your family's routine.
+              Start with the free 3-day menu.
+              See how the recipes, grocery lists, and prep
+              schedule fit your family's routine.
             </p>
 
             <ul class="check-list">
@@ -2806,7 +3858,7 @@
                   <use href="#i-check"></use>
                 </svg>
 
-                Three easy dinner recipes, each 30 minutes or less
+                Three easy dinner recipes, 30 minutes or less
 
               </li>
 
@@ -2816,7 +3868,7 @@
                   <use href="#i-check"></use>
                 </svg>
 
-                One ready-to-use grocery list
+                A ready-to-use grocery list
 
               </li>
 
@@ -2826,7 +3878,7 @@
                   <use href="#i-check"></use>
                 </svg>
 
-                A simple prep-ahead plan
+                A simple, easy-to-follow prep-ahead plan
 
               </li>
 
@@ -2834,14 +3886,16 @@
 
           </div>
 
-          <div class="form-card">
+          <div class="form-card paper-card">
 
-            <form id="lead" method="post" novalidate>
+            <form id="lead"
+                  method="post"
+                  novalidate>
 
-              <h3>Get your free sample.</h3>
+              <h3>Get your free dinner menu.</h3>
 
               <p class="form-intro">
-                Three dinners. No purchase needed.
+                Three dinners. No purchase necessary.
               </p>
 
               <label class="field-label" for="email">
@@ -2854,7 +3908,7 @@
                      type="email"
                      autocomplete="email"
                      inputmode="email"
-                     placeholder="you@example.com"
+                     placeholder="Your email address"
                      maxlength="254"
                      aria-describedby="email-error form-note"
                      required>
@@ -2871,23 +3925,23 @@
               <button class="button button-primary form-submit"
                       type="submit">
 
-                Send me the free sample
+                Send me the free menu
 
-                <svg class="icon" aria-hidden="true">
+                <svg class="arrow" aria-hidden="true">
                   <use href="#i-arrow"></use>
                 </svg>
 
               </button>
 
               <p class="form-privacy" id="form-note">
-                No payment details needed. Email delivery is not
-                connected in this preview.
+                No payment details needed.
+                Email delivery is not connected in this preview.
               </p>
 
               <noscript>
 
                 <p class="field-error">
-                  Please enable JavaScript to use the sample form.
+                  Please enable JavaScript to use this form.
                 </p>
 
               </noscript>
@@ -2912,7 +3966,8 @@
               <h3>You're all set!</h3>
 
               <p>
-                Your sample request has been confirmed in this preview.
+                Your request for the free menu has been
+                confirmed in this preview.
                 No email has been sent yet.
               </p>
 
@@ -2934,27 +3989,35 @@
 
     </section>
 
-    <!-- 07. PRICING -->
+    <!-- =====================================================
+         06. PRICING
+    ====================================================== -->
 
-    <section class="section section-soft"
-             id="buy"
+    <section class="section band-cream"
+             id="pricing"
              aria-labelledby="pricing-title">
+
+      <div id="buy"></div>
 
       <div class="container pricing-grid">
 
         <div class="pricing-copy" data-reveal>
 
-          <div class="eyebrow">
-            One download. Four easier weeks.
+          <div class="section-kicker">
+            <span class="section-index" aria-hidden="true">06</span>
+            <div class="eyebrow">
+              One download. Four easier weeks.
+            </div>
           </div>
 
           <h2 id="pricing-title">
-            A month of dinners, for less than one takeout order.
+            A month of dinners for less than one takeout order.
           </h2>
 
           <p>
-            Pay once, keep the PDF, and come back to it whenever
-            your week needs a little structure.
+            Pay once, save the PDF, and come back to it
+            whenever you want to simplify your family's
+            dinner routine.
           </p>
 
           <ul class="check-list">
@@ -2975,7 +4038,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              28 family-friendly dinner recipes
+              28 easy recipes for the whole family
 
             </li>
 
@@ -3015,7 +4078,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Snack and lunch add-on ideas
+              Extra snack and lunch ideas
 
             </li>
 
@@ -3025,7 +4088,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Printable meal planner pages
+              Printable meal planning pages
 
             </li>
 
@@ -3035,7 +4098,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Phone, tablet, and print-friendly access
+              Convenient phone, tablet, and print-friendly format
 
             </li>
 
@@ -3043,9 +4106,11 @@
 
         </div>
 
-        <article class="price-card" data-reveal>
+        <article class="price-card paper-card" data-reveal>
 
-          <span class="price-tag">Save 50%</span>
+          <span class="price-tag">
+            Save 50%
+          </span>
 
           <h3>The 4-Week Dinner Plan</h3>
 
@@ -3054,6 +4119,7 @@
           </p>
 
           <div class="price-display"
+               role="group"
                aria-label="12 US dollars, reduced from 24 US dollars">
 
             <span class="current-price" aria-hidden="true">
@@ -3070,13 +4136,15 @@
             One-time payment. No subscription.
           </p>
 
-          <div class="price-divider"></div>
+          <div class="price-divider" aria-hidden="true"></div>
 
           <p class="price-description">
             That's less than 43 cents per planned dinner.
-            Spend less time deciding what to cook and more time
-            enjoying your evening.
+            Less time deciding what to cook means more time
+            for yourself and your family.
           </p>
+
+          <div class="price-divider" aria-hidden="true"></div>
 
           <a class="button button-primary"
              href="https://gumroad.com/"
@@ -3086,7 +4154,7 @@
 
             Get the 4-week plan — $12
 
-            <svg class="icon" aria-hidden="true">
+            <svg class="arrow" aria-hidden="true">
               <use href="#i-arrow"></use>
             </svg>
 
@@ -3098,12 +4166,15 @@
               <use href="#i-lock"></use>
             </svg>
 
-            Secure checkout · Instant download
+            <span>
+              Card payment · PDF delivered instantly by email
+            </span>
 
           </p>
 
           <p class="price-footnote">
-            All prices in USD. Digital product, no shipping required.
+            All prices in USD.
+            Digital product, no shipping required.
           </p>
 
         </article>
@@ -3112,41 +4183,62 @@
 
     </section>
 
-    <!-- 08. TESTIMONIAL SECTION -->
+    <!-- =====================================================
+         07. TESTIMONIALS
+    ====================================================== -->
 
-    <section class="section"
+    <section class="section band-paper"
+             id="testimonials"
              aria-labelledby="testimonials-title">
 
       <div class="container">
 
         <div class="section-heading" data-reveal>
 
-          <div class="eyebrow">
-            What an easier week could look like
+          <div class="section-kicker">
+            <span class="section-index" aria-hidden="true">07</span>
+            <div class="eyebrow">What your week could look like</div>
           </div>
 
           <h2 id="testimonials-title">
-            Less dinner stress. More room for real life.
+            Less stress in the kitchen. More time for life.
           </h2>
 
           <p>
-            From the Sunday grocery run to the rush after school,
-            here's what a planned week can change.
+            From the Sunday grocery run to the evening rush
+            after work and school, here's how a ready-made
+            dinner plan could make your weekdays easier.
           </p>
 
         </div>
 
-        <div class="testimonial-grid">
+        <div class="testimonial-grid"
+             aria-describedby="testimonial-note">
 
-          <figure class="testimonial" data-reveal>
+          <figure class="testimonial paper-card" data-reveal>
+
+            <div class="star-row"
+                 aria-hidden="true"
+                 title="Decorative stars, not customer ratings">
+
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+
+            </div>
 
             <span class="quote-mark" aria-hidden="true">
               &ldquo;
             </span>
 
             <blockquote>
-              I finished my Sunday grocery shop with one list instead
-              of trying to remember seven different recipes.
+
+              <em>I got all my Sunday groceries with one list.</em>
+              I didn't have to open seven different recipes
+              or try to remember what I was missing.
+
             </blockquote>
 
             <figcaption class="testimonial-author">
@@ -3155,12 +4247,10 @@
 
               <span>
 
-                <span class="author-name">
-                  Sarah
-                </span>
+                <span class="author-name">Sarah</span>
 
                 <span class="author-detail">
-                  Illustrative scenario · Mom of 2
+                  Illustrative scenario · Mom of two
                 </span>
 
               </span>
@@ -3169,15 +4259,30 @@
 
           </figure>
 
-          <figure class="testimonial" data-reveal>
+          <figure class="testimonial paper-card" data-reveal>
+
+            <div class="star-row"
+                 aria-hidden="true"
+                 title="Decorative stars, not customer ratings">
+
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+
+            </div>
 
             <span class="quote-mark" aria-hidden="true">
               &ldquo;
             </span>
 
             <blockquote>
-              When I got home from work, I already knew what to make.
-              Dinner was on the table within half an hour.
+
+              <em>I got home from work and already knew what to cook.</em>
+              Dinner was on the table within half an hour,
+              and I finally had some time to relax.
+
             </blockquote>
 
             <figcaption class="testimonial-author">
@@ -3186,12 +4291,10 @@
 
               <span>
 
-                <span class="author-name">
-                  Megan
-                </span>
+                <span class="author-name">Megan</span>
 
                 <span class="author-detail">
-                  Illustrative scenario · Mom of 3
+                  Illustrative scenario · Mom of three
                 </span>
 
               </span>
@@ -3200,15 +4303,30 @@
 
           </figure>
 
-          <figure class="testimonial" data-reveal>
+          <figure class="testimonial paper-card" data-reveal>
+
+            <div class="star-row"
+                 aria-hidden="true"
+                 title="Decorative stars, not customer ratings">
+
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+              <svg><use href="#i-star"></use></svg>
+
+            </div>
 
             <span class="quote-mark" aria-hidden="true">
               &ldquo;
             </span>
 
             <blockquote>
-              We put the weekly menu on the fridge. The kids could
-              check what was for dinner without asking me.
+
+              <em>We put the menu on the fridge.</em>
+              Now the kids can see what's for dinner
+              without asking me about it every hour.
+
             </blockquote>
 
             <figcaption class="testimonial-author">
@@ -3217,12 +4335,10 @@
 
               <span>
 
-                <span class="author-name">
-                  Laura
-                </span>
+                <span class="author-name">Laura</span>
 
                 <span class="author-detail">
-                  Illustrative scenario · Mom of 2
+                  Illustrative scenario · Mom of two
                 </span>
 
               </span>
@@ -3233,18 +4349,24 @@
 
         </div>
 
-        <p class="testimonial-disclosure">
-          These fictional examples illustrate potential everyday uses
-          of the plan. They are not verified customer testimonials.
+        <p class="testimonial-disclosure"
+           id="testimonial-note">
+
+          These fictional examples illustrate potential everyday
+          benefits of the plan and are not verified customer reviews.
+          The stars are decorative and do not represent customer ratings.
+
         </p>
 
       </div>
 
     </section>
 
-    <!-- 09. FAQ -->
+    <!-- =====================================================
+         08. FAQ
+    ====================================================== -->
 
-    <section class="section section-soft"
+    <section class="section band-white"
              id="faq"
              aria-labelledby="faq-title">
 
@@ -3252,19 +4374,22 @@
 
         <div class="faq-intro" data-reveal>
 
-          <div class="eyebrow">A few things to know</div>
+          <div class="section-kicker">
+            <span class="section-index" aria-hidden="true">08</span>
+            <div class="eyebrow">Good to know</div>
+          </div>
 
           <h2 id="faq-title">
-            Before you plan your first week.
+            What to know before your first week.
           </h2>
 
           <p>
-            Everything you need to know about getting and using
-            your dinner plan.
+            Answers to the most common questions about
+            buying and using your dinner plan.
           </p>
 
           <a class="text-link" href="#sample">
-            Still deciding? Try the free sample.
+            Still deciding? Try the free menu.
           </a>
 
         </div>
@@ -3295,9 +4420,10 @@
                  aria-labelledby="faq-button-1">
 
               <p>
-                It's a 48-page downloadable PDF. Open it on your
-                phone, tablet, or computer using a standard PDF reader.
-                No special app or subscription is needed.
+                It's a 48-page downloadable PDF that you can save
+                on your phone, tablet, or computer.
+                A standard PDF reader is all you need.
+                No special app or paid subscription is required.
               </p>
 
             </div>
@@ -3328,9 +4454,9 @@
                  aria-labelledby="faq-button-2">
 
               <p>
-                Yes. Print the entire plan or just the pages you need.
-                You can keep the grocery list in your bag and put the
-                weekly dinner menu on your fridge.
+                Yes. Print the entire guide or just the pages
+                you need. Take the grocery list with you to the
+                store and put the weekly dinner menu on the fridge.
               </p>
 
             </div>
@@ -3347,7 +4473,7 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-3">
 
-                What if my family has dietary preferences?
+                What if my family has specific dietary needs?
 
                 <span class="faq-toggle" aria-hidden="true"></span>
 
@@ -3361,10 +4487,11 @@
                  aria-labelledby="faq-button-3">
 
               <p>
-                You can adapt the recipes with familiar ingredient
-                swaps, such as gluten-free pasta or dairy-free cheese.
-                The plan isn't a specialized allergy or medical diet,
-                so check ingredients and adjust grocery lists as needed.
+                You can adapt recipes to your family's preferences,
+                such as using gluten-free pasta or dairy-free cheese.
+                The plan isn't designed as a medical or allergy-specific
+                diet, so check ingredients and adjust your grocery
+                lists as needed.
               </p>
 
             </div>
@@ -3381,7 +4508,7 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-4">
 
-                What's the refund policy?
+                Can I get a refund after purchasing?
 
                 <span class="faq-toggle" aria-hidden="true"></span>
 
@@ -3395,9 +4522,10 @@
                  aria-labelledby="faq-button-4">
 
               <p>
-                This is a digital download. Please review the seller's
-                refund terms at checkout before purchasing. You can
-                also try the free 3-day sample before making a decision.
+                This is a digital product. Please review the refund
+                terms on the checkout page before paying.
+                You can also try the free 3-day menu first
+                to see whether the full plan is right for you.
               </p>
 
             </div>
@@ -3414,7 +4542,7 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-5">
 
-                How do I receive the plan after buying?
+                How do I receive the plan after purchasing?
 
                 <span class="faq-toggle" aria-hidden="true"></span>
 
@@ -3428,9 +4556,10 @@
                  aria-labelledby="faq-button-5">
 
               <p>
-                Once checkout is complete, you'll receive access to
-                download the PDF. Save a copy on your device so you
-                can use the plan whenever you need it.
+                Once your payment is complete, you'll receive
+                access to download the PDF.
+                Save it on your device so you can use
+                your dinner plan whenever you need it.
               </p>
 
             </div>
@@ -3445,9 +4574,11 @@
 
   </main>
 
-  <!-- 10. FOOTER -->
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
 
-  <footer class="site-footer">
+  <footer class="site-footer band-cream">
 
     <div class="container">
 
@@ -3455,7 +4586,9 @@
 
         <div class="footer-brand">
 
-          <a class="wordmark" href="#top">
+          <a class="wordmark"
+             href="#top"
+             aria-label="The 4-Week Dinner Plan — back to top">
 
             <svg class="brand-icon" aria-hidden="true">
               <use href="#i-brand"></use>
@@ -3465,7 +4598,9 @@
 
           </a>
 
-          <p>Good food. Fewer decisions. Easier evenings.</p>
+          <p>
+            Good food. Less stress. Calmer evenings.
+          </p>
 
         </div>
 
@@ -3473,7 +4608,7 @@
              aria-label="Footer navigation">
 
           <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+          <a href="#">Terms of sale</a>
           <a href="#">Contact</a>
 
         </nav>
@@ -3483,16 +4618,54 @@
       <div class="footer-bottom">
 
         <p>
-          &copy; 2026 The 4-Week Dinner Plan. All rights reserved.
+          &copy; 2026 The 4-Week Dinner Plan.
+          All rights reserved.
         </p>
 
-        <p>Made for real family life.</p>
+        <p>
+          Made for real family life.
+        </p>
 
       </div>
 
     </div>
 
   </footer>
+
+  <!-- =======================================================
+       MOBILE PURCHASE BAR
+  ======================================================== -->
+
+  <aside class="mobile-buy-bar"
+         id="mobile-buy-bar"
+         aria-label="Quick dinner plan purchase"
+         hidden>
+
+    <div class="container mobile-buy-inner">
+
+      <div class="mobile-price">
+
+        <strong>$12</strong>
+        <span>· 48 pages</span>
+
+      </div>
+
+      <a class="button button-primary mobile-bar-button"
+         href="#buy"
+         data-cta="buy"
+         aria-label="Get the dinner plan for 12 dollars">
+
+        Get the plan
+
+        <svg class="arrow" aria-hidden="true">
+          <use href="#i-arrow"></use>
+        </svg>
+
+      </a>
+
+    </div>
+
+  </aside>
 
   <script>
     (() => {
@@ -3502,11 +4675,23 @@
         "(prefers-reduced-motion: reduce)"
       );
 
+      const mobileViewport = window.matchMedia(
+        "(max-width: 480px)"
+      );
+
+      const purchaseBarViewport = window.matchMedia(
+        "(max-width: 768px)"
+      );
+
       /*
-       * Sticky header.
+       * STICKY HEADER
        */
 
       const header = document.getElementById("header");
+      const hero = document.getElementById("top");
+      const mobileBuyBar = document.getElementById(
+        "mobile-buy-bar"
+      );
 
       let scrollScheduled = false;
 
@@ -3515,42 +4700,79 @@
           "scrolled",
           window.scrollY > 12
         );
+      }
 
+      /*
+       * MOBILE PURCHASE BAR
+       *
+       * Visible only at 768px and below.
+       * Appears when the complete hero has passed the header.
+       * Does not depend on animation preferences.
+       */
+
+      function updateMobileBuyBar() {
+        if (!hero || !mobileBuyBar) return;
+
+        const heroBottom =
+          hero.getBoundingClientRect().bottom;
+
+        const headerHeight = header.offsetHeight;
+
+        const shouldShow =
+          purchaseBarViewport.matches &&
+          heroBottom <= headerHeight;
+
+        mobileBuyBar.classList.toggle(
+          "is-visible",
+          shouldShow
+        );
+
+        mobileBuyBar.hidden = !shouldShow;
+      }
+
+      function updateScrollUI() {
+        updateHeader();
+        updateMobileBuyBar();
         scrollScheduled = false;
+      }
+
+      function scheduleScrollUpdate() {
+        if (scrollScheduled) return;
+
+        scrollScheduled = true;
+
+        window.requestAnimationFrame(
+          updateScrollUI
+        );
       }
 
       window.addEventListener(
         "scroll",
-        () => {
-          if (!scrollScheduled) {
-            scrollScheduled = true;
-
-            window.requestAnimationFrame(
-              updateHeader
-            );
-          }
-        },
+        scheduleScrollUpdate,
         { passive: true }
       );
 
-      updateHeader();
+      updateScrollUI();
+
+      if ("IntersectionObserver" in window) {
+        const heroObserver = new IntersectionObserver(
+          () => {
+            updateMobileBuyBar();
+          },
+          {
+            threshold: [0,1]
+          }
+        );
+
+        heroObserver.observe(hero);
+      }
 
       /*
-       * Responsive product composition.
-       *
-       * Scale all three layers together.
-       * Mobile scale is capped at .62.
-       * Mobile stage height is capped at 320px.
-       * Narrower screens receive a smaller scale.
-       * No clipping or hidden overflow is used.
+       * RESPONSIVE PRODUCT MOCKUP
        */
 
       const productStage = document.getElementById(
         "product-stage"
-      );
-
-      const mobileViewport = window.matchMedia(
-        "(max-width: 480px)"
       );
 
       const MOCKUP_WIDTH = 500;
@@ -3564,7 +4786,9 @@
       function resizeMockup() {
         if (!productStage) return;
 
-        const availableWidth = productStage.clientWidth;
+        const availableWidth =
+          productStage.clientWidth;
+
         const isMobile = mobileViewport.matches;
 
         if (availableWidth <= 0) return;
@@ -3581,12 +4805,14 @@
         previousMockupWidth = availableWidth;
         previousMobileState = isMobile;
 
-        const maximumScale = isMobile ? .62 : 1.12;
+        const maximumScale =
+          isMobile ? .62 : 1.12;
 
         const widthScale = Math.max(
           .01,
-          (availableWidth - MOCKUP_INSET) /
-          MOCKUP_WIDTH
+          (
+            availableWidth - MOCKUP_INSET
+          ) / MOCKUP_WIDTH
         );
 
         const scale = Math.min(
@@ -3611,6 +4837,8 @@
           "--stage-height",
           `${Math.ceil(stageHeight)}px`
         );
+
+        updateMobileBuyBar();
       }
 
       resizeMockup();
@@ -3634,7 +4862,9 @@
 
           window.requestAnimationFrame(() => {
             resizeScheduled = false;
+
             resizeMockup();
+            updateMobileBuyBar();
           });
         },
         { passive: true }
@@ -3656,6 +4886,16 @@
         );
       }
 
+      if (
+        typeof purchaseBarViewport.addEventListener ===
+        "function"
+      ) {
+        purchaseBarViewport.addEventListener(
+          "change",
+          updateMobileBuyBar
+        );
+      }
+
       window.addEventListener(
         "beforeprint",
         refreshMockup
@@ -3667,11 +4907,11 @@
       );
 
       /*
-       * FAQ accordion.
+       * FAQ ACCORDION
        *
-       * One answer is open at a time.
-       * Clicking an open question closes it.
-       * Arrow keys, Home, and End navigate the questions.
+       * One panel open at a time.
+       * Clicking an open panel closes it.
+       * Keyboard navigation uses arrows, Home and End.
        * All answers remain visible without JavaScript.
        */
 
@@ -3725,30 +4965,39 @@
 
             switch (event.key) {
               case "ArrowDown":
+
                 nextIndex =
                   (currentIndex + 1) %
                   faqButtons.length;
+
                 break;
 
               case "ArrowUp":
+
                 nextIndex =
                   (
                     currentIndex - 1 +
                     faqButtons.length
                   ) %
                   faqButtons.length;
+
                 break;
 
               case "Home":
+
                 nextIndex = 0;
+
                 break;
 
               case "End":
+
                 nextIndex =
                   faqButtons.length - 1;
+
                 break;
 
               default:
+
                 return;
             }
 
@@ -3760,10 +5009,10 @@
       });
 
       /*
-       * Email form.
+       * EMAIL FORM
        *
-       * Local demonstration only.
-       * No email is transmitted or stored.
+       * Local demonstration.
+       * No personal information is transmitted or stored.
        */
 
       const leadForm = document.getElementById(
@@ -3787,7 +5036,8 @@
       );
 
       function validateEmail() {
-        const value = emailInput.value.trim();
+        const value =
+          emailInput.value.trim();
 
         const basicPattern =
           /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -3830,13 +5080,17 @@
           emailInput.getAttribute("aria-invalid") ===
           "true"
         ) {
-          showEmailError(validateEmail());
+          showEmailError(
+            validateEmail()
+          );
         }
       });
 
       emailInput.addEventListener("blur",() => {
         if (emailInput.value.trim()) {
-          showEmailError(validateEmail());
+          showEmailError(
+            validateEmail()
+          );
         }
       });
 
@@ -3859,19 +5113,20 @@
           showEmailError("");
 
           /*
-           * Connect an authorized email delivery integration here.
-           * Do not claim successful email delivery until the service
-           * has actually confirmed it.
+           * Connect the email delivery service here.
+           * Display actual delivery confirmation only
+           * after a successful response from the service.
            */
 
           leadForm.reset();
           leadForm.hidden = true;
-
           thanks.hidden = false;
 
           thanks.focus({
             preventScroll: true
           });
+
+          updateMobileBuyBar();
         }
       );
 
@@ -3886,14 +5141,17 @@
           emailInput.focus({
             preventScroll: true
           });
+
+          updateMobileBuyBar();
         }
       );
 
       /*
-       * Smooth anchor scrolling.
+       * SMOOTH ANCHOR SCROLLING
        *
-       * Native scrollIntoView respects the CSS scroll margin.
-       * Anchored sections remain below the sticky header.
+       * Existing #buy and #week-preview aliases are preserved.
+       * Their parent sections are used as scroll targets.
+       * This keeps focus and sticky-header offsets consistent.
        */
 
       document.querySelectorAll(
@@ -3911,12 +5169,6 @@
               return;
             }
 
-            const target = document.getElementById(
-              href.slice(1)
-            );
-
-            if (!target) return;
-
             if (
               event.metaKey ||
               event.ctrlKey ||
@@ -3924,6 +5176,21 @@
               event.altKey
             ) {
               return;
+            }
+
+            let target = document.getElementById(
+              href.slice(1)
+            );
+
+            if (!target) return;
+
+            if (
+              href === "#buy" ||
+              href === "#week-preview"
+            ) {
+              target =
+                target.closest("section") ||
+                target;
             }
 
             event.preventDefault();
@@ -3971,8 +5238,8 @@
                 );
               } catch (error) {
                 /*
-                 * Local file environments may restrict history updates.
-                 * Scrolling still works without changing the URL.
+                 * Local file previews can restrict history.
+                 * The anchor still scrolls normally.
                  */
               }
             }
@@ -3993,10 +5260,7 @@
       });
 
       /*
-       * Subtle reveal-on-scroll.
-       *
-       * Enabled only when IntersectionObserver is supported
-       * and reduced motion has not been requested.
+       * SUBTLE SCROLL REVEAL
        */
 
       const revealElements = Array.from(
@@ -4034,7 +5298,7 @@
             });
           },
           {
-            threshold: 0.05,
+            threshold: .05,
             rootMargin: "0px 0px 0px 0px"
           }
         );
@@ -4066,10 +5330,7 @@
 
         revealElements.forEach(element => {
           element.classList.remove(
-            "reveal-pending"
-          );
-
-          element.classList.remove(
+            "reveal-pending",
             "reveal-visible"
           );
         });
@@ -4091,10 +5352,23 @@
         );
       }
 
+      /*
+       * Refresh after restored browser navigation.
+       */
+
+      window.addEventListener(
+        "pageshow",
+        () => {
+          refreshMockup();
+          updateScrollUI();
+        }
+      );
+
     })();
   </script>
 
   <noscript>
+
     <style>
       #lead .form-submit {
         display: none;
@@ -4104,7 +5378,16 @@
         opacity: 1;
         transform: none;
       }
+
+      .mobile-buy-bar {
+        display: none !important;
+      }
+
+      body {
+        padding-bottom: 0 !important;
+      }
     </style>
+
   </noscript>
 
 </body>
