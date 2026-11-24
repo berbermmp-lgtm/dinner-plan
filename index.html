@@ -4,13 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FAF6EF">
-  <meta name="description" content="Four weeks of easy family dinners, weekly grocery lists, and prep-ahead schedules. 28 recipes, 30 minutes or less. One PDF, just $12.">
-  <title>The 4-Week Dinner Plan — Dinner, Decided.</title>
+  <meta name="description" content="Plan 28 easy family dinners with weekly grocery lists and prep-ahead schedules. All recipes take 30 minutes or less. Download the 4-week PDF for $12.">
+
+  <title>The 4-Week Dinner Plan | 28 Easy Family Dinners</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23B4552F'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='16' fill='%23FAF6EF' text-anchor='middle'%3E4%3C/text%3E%3C/svg%3E">
 
   <style>
     :root {
       --paper: #FAF6EF;
       --ink: #1C1A17;
+      --body: #3A362F;
       --muted: #6E675C;
       --accent: #B4552F;
       --accent-deep: #8F3F21;
@@ -23,6 +27,7 @@
       --shadow: 0 10px 30px -20px rgba(28,26,23,.35);
       --serif: Georgia, "Times New Roman", serif;
       --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      --header-height: 60px;
     }
 
     *, *::before, *::after {
@@ -31,17 +36,22 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 110px;
     }
 
     body {
       margin: 0;
       background: var(--paper);
-      color: var(--ink);
+      color: var(--body);
       font-family: var(--sans);
       font-size: 17px;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    section[id],
+    main[id] {
+      scroll-margin-top: 80px;
     }
 
     [hidden] {
@@ -53,6 +63,7 @@
     }
 
     h1, h2, h3 {
+      color: var(--ink);
       font-family: var(--serif);
       font-weight: 400;
       letter-spacing: -.012em;
@@ -73,7 +84,7 @@
     }
 
     p {
-      color: var(--muted);
+      color: var(--body);
     }
 
     a {
@@ -135,7 +146,7 @@
 
     .eyebrow {
       display: block;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       color: #8F3F21;
       font-size: 12px;
       font-weight: 600;
@@ -162,6 +173,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+      min-width: 44px;
       min-height: 58px;
       padding: 15px 21px;
       border: 1.5px solid transparent;
@@ -218,9 +230,12 @@
 
     .skip-link {
       position: fixed;
-      top: 10px;
-      left: 10px;
+      top: 8px;
+      left: 8px;
       z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
       padding: 12px 18px;
       border-radius: 6px;
       color: white;
@@ -238,6 +253,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
+      height: var(--header-height);
       background: rgba(250,246,239,.94);
       border-bottom: 1px solid var(--hairline);
       transition: background-color .2s ease;
@@ -248,17 +264,20 @@
     }
 
     .header-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      display: flex;
       align-items: center;
-      gap: 8px 14px;
-      padding-block: 12px 10px;
+      justify-content: space-between;
+      gap: 12px;
+      height: 100%;
     }
 
     .wordmark {
       display: inline-flex;
       align-items: center;
       gap: 9px;
+      min-width: 44px;
+      min-height: 44px;
+      color: var(--ink);
       font-family: var(--serif);
       font-size: 19px;
       letter-spacing: -.012em;
@@ -273,19 +292,23 @@
     }
 
     .main-nav {
-      grid-column: 1 / -1;
-      grid-row: 2;
-      display: flex;
+      display: none;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px 26px;
+      gap: 18px;
     }
 
     .main-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      min-width: 44px;
       padding: 5px 0;
       color: var(--muted);
       font-size: 13px;
       font-weight: 550;
+      white-space: nowrap;
     }
 
     .main-nav a:hover {
@@ -293,20 +316,27 @@
     }
 
     .header-buy {
-      min-height: 40px;
-      padding: 9px 12px;
-      font-size: 12px;
+      gap: 0;
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: 10px 14px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .btn-long {
+      margin-left: 4px;
     }
 
     /* HERO */
 
     .hero {
-      padding-block: 55px 64px;
+      padding-block: 46px 64px;
     }
 
     .hero-grid {
       display: grid;
-      gap: 42px;
+      gap: 34px;
       align-items: start;
     }
 
@@ -326,14 +356,19 @@
     .hero-description {
       max-width: 510px;
       margin-top: 24px;
+      color: #3A362F;
       font-size: 18px;
     }
 
     .hero-actions {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       margin-top: 30px;
+    }
+
+    .hero-actions .button {
+      width: 100%;
     }
 
     .micro-trust {
@@ -341,6 +376,7 @@
       align-items: flex-start;
       gap: 8px;
       margin-top: 20px;
+      color: #3A362F;
       font-size: 12px;
       line-height: 1.6;
     }
@@ -363,7 +399,7 @@
       position: relative;
       isolation: isolate;
       width: 100%;
-      height: var(--stage-height, 300px);
+      height: var(--stage-height, 294px);
       overflow: visible;
       border: 1px solid #DED2C1;
       border-radius: 20px;
@@ -380,13 +416,14 @@
           rgba(106,78,47,.018) 3px,
           rgba(106,78,47,.018) 4px
         ),
-        linear-gradient(145deg, #EFE7DA, #E1D5C2);
+        linear-gradient(145deg,#EFE7DA,#E1D5C2);
     }
 
     /*
-      The complete composition uses a fixed 500 x 460 design canvas.
-      JavaScript scales the entire wrapper to the available width.
-      All cards, text, rotations, and shadows scale together.
+      The 500 x 460 composition is scaled as one unit.
+      At 390px viewport width, its scale is .62 and its
+      stage height is approximately 295px.
+      Text and card shadows remain visible without clipping.
     */
 
     .mockup-composition {
@@ -395,10 +432,9 @@
       left: 50%;
       width: 500px;
       height: 460px;
+      margin-left: -250px;
       transform-origin: top center;
-      transform:
-        translateX(-50%)
-        scale(var(--mock-scale, .62));
+      transform: scale(var(--mock-scale,.62));
       overflow: visible;
     }
 
@@ -423,7 +459,7 @@
       position: absolute;
       z-index: 3;
       top: 42px;
-      left: 46px;
+      left: 40px;
       width: 260px;
       height: 354px;
       display: flex;
@@ -440,8 +476,6 @@
       transform: rotate(-4deg);
       text-align: center;
     }
-
-    /* Thin spine highlight */
 
     .book::before {
       position: absolute;
@@ -461,8 +495,6 @@
       content: "";
       pointer-events: none;
     }
-
-    /* Visible paper edges */
 
     .book::after {
       position: absolute;
@@ -538,7 +570,7 @@
       position: absolute;
       z-index: 2;
       top: 42px;
-      right: 35px;
+      right: 25px;
       width: 205px;
       min-height: 157px;
       padding: 21px 19px;
@@ -571,7 +603,7 @@
     .recipe-card-mock small {
       display: block;
       margin-bottom: 6px;
-      color: var(--muted);
+      color: var(--body);
       font-size: 10px;
       line-height: 1.45;
     }
@@ -586,9 +618,9 @@
     .mock-sheet {
       position: absolute;
       z-index: 4;
-      top: 180px;
-      right: 31px;
-      width: 191px;
+      top: 185px;
+      right: 17px;
+      width: 188px;
       min-height: 236px;
       padding: 18px 17px 15px;
       overflow: visible;
@@ -637,9 +669,10 @@
       min-height: 25px;
       padding-block: 4px;
       border-bottom: 1px solid #E4DCCE;
-      color: #51493E;
+      color: var(--body);
       font-size: 11px;
       line-height: 1.4;
+      white-space: nowrap;
     }
 
     .sheet-row::before {
@@ -700,6 +733,7 @@
     }
 
     .feature-card p {
+      color: #3A362F;
       font-size: 15px;
       line-height: 1.65;
     }
@@ -712,6 +746,10 @@
       gap: 35px;
     }
 
+    .week-layout > * {
+      min-width: 0;
+    }
+
     .week-copy p {
       margin-top: 20px;
     }
@@ -720,6 +758,7 @@
       margin-top: 28px;
       padding-left: 18px;
       border-left: 2px solid var(--accent);
+      color: var(--ink);
       font-family: var(--serif);
       font-size: 22px;
       font-style: italic;
@@ -803,6 +842,10 @@
       font-weight: 650;
     }
 
+    .meal-table tbody td {
+      color: var(--body);
+    }
+
     .meal-table tbody td:last-child {
       padding-right: 8px;
       color: var(--muted);
@@ -845,7 +888,7 @@
     }
 
     .stats-heading h2 {
-      font-size: clamp(30px, 4vw, 43px);
+      font-size: clamp(30px,4vw,43px);
     }
 
     .stats-grid {
@@ -868,7 +911,7 @@
       display: block;
       color: var(--accent-deep);
       font-family: var(--serif);
-      font-size: clamp(56px, 7vw, 86px);
+      font-size: clamp(56px,7vw,86px);
       letter-spacing: -.012em;
       line-height: 1;
     }
@@ -876,6 +919,7 @@
     .stat-label {
       display: block;
       margin-top: 7px;
+      color: var(--ink);
       font-weight: 650;
       font-size: 17px;
     }
@@ -896,6 +940,10 @@
       background: #F8F3E9;
     }
 
+    .sample-copy {
+      min-width: 0;
+    }
+
     .sample-copy p {
       margin-top: 17px;
     }
@@ -912,6 +960,7 @@
       display: flex;
       align-items: flex-start;
       gap: 11px;
+      color: var(--body);
       font-size: 15px;
     }
 
@@ -946,6 +995,7 @@
     .field-label {
       display: block;
       margin-bottom: 7px;
+      color: var(--ink);
       font-size: 13px;
       font-weight: 650;
     }
@@ -964,7 +1014,7 @@
     }
 
     .email-input::placeholder {
-      color: #82796C;
+      color: var(--muted);
     }
 
     .email-input[aria-invalid="true"] {
@@ -1024,6 +1074,10 @@
       gap: 35px;
     }
 
+    .pricing-grid > * {
+      min-width: 0;
+    }
+
     .pricing-copy p {
       margin-top: 18px;
       max-width: 500px;
@@ -1062,6 +1116,7 @@
 
     .price-product-detail {
       margin-top: 7px;
+      color: var(--muted);
       font-size: 13px;
     }
 
@@ -1090,6 +1145,7 @@
 
     .price-note {
       margin-top: 10px;
+      color: var(--muted);
       font-size: 13px;
     }
 
@@ -1114,6 +1170,7 @@
       align-items: center;
       gap: 7px;
       margin-top: 15px;
+      color: var(--body);
       font-size: 11px;
       text-align: center;
     }
@@ -1126,6 +1183,7 @@
 
     .price-footnote {
       margin-top: 15px;
+      color: var(--muted);
       font-size: 11px;
       text-align: center;
     }
@@ -1158,6 +1216,7 @@
     .testimonial blockquote {
       flex: 1;
       margin-block: 6px 23px;
+      color: var(--body);
       font-family: var(--serif);
       font-size: 21px;
       line-height: 1.5;
@@ -1196,6 +1255,7 @@
 
     .author-name {
       display: block;
+      color: var(--ink);
       font-size: 14px;
       font-weight: 650;
     }
@@ -1208,6 +1268,7 @@
 
     .testimonial-disclosure {
       margin-top: 18px;
+      color: var(--muted);
       font-size: 12px;
     }
 
@@ -1219,14 +1280,21 @@
       align-items: start;
     }
 
+    .faq-layout > * {
+      min-width: 0;
+    }
+
     .faq-intro p {
       margin-top: 16px;
       max-width: 320px;
     }
 
     .faq-intro .text-link {
-      display: inline-block;
-      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      min-width: 44px;
+      margin-top: 12px;
       color: var(--accent-deep);
       font-size: 14px;
       font-weight: 650;
@@ -1247,6 +1315,7 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      min-height: 44px;
       gap: 16px;
       padding: 22px 0;
       border: 0;
@@ -1281,11 +1350,11 @@
       height: 1px;
       background: currentColor;
       content: "";
-      transform: translate(-50%, -50%);
+      transform: translate(-50%,-50%);
     }
 
     .faq-toggle::after {
-      transform: translate(-50%, -50%) rotate(90deg);
+      transform: translate(-50%,-50%) rotate(90deg);
     }
 
     .faq-question[aria-expanded="true"] .faq-toggle {
@@ -1302,6 +1371,7 @@
     }
 
     .faq-answer p {
+      color: var(--body);
       font-size: 15px;
       line-height: 1.7;
     }
@@ -1330,10 +1400,15 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px 25px;
+      gap: 8px 25px;
     }
 
     .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
       color: var(--muted);
       font-size: 13px;
     }
@@ -1353,6 +1428,7 @@
     }
 
     .footer-bottom p {
+      color: var(--muted);
       font-size: 11px;
     }
 
@@ -1370,23 +1446,167 @@
       transform: translateY(0);
     }
 
-    /* RESPONSIVE */
+    /* MOBILE */
 
-    @media (min-width: 390px) {
+    @media (max-width: 480px) {
+      .site-header {
+        height: 60px;
+      }
+
+      .header-inner {
+        gap: 12px;
+      }
+
+      .site-header .main-nav {
+        display: none;
+      }
+
+      .site-header .wordmark {
+        font-size: 17px;
+        gap: 7px;
+      }
+
+      .site-header .brand-icon {
+        width: 26px;
+        height: 26px;
+      }
+
+      .header-buy {
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .hero-actions .button {
+        width: 100%;
+        min-height: 48px;
+        padding: 13px 15px;
+        font-size: 16px;
+      }
+
+      .form-submit,
+      .price-card .button {
+        min-height: 48px;
+        padding: 13px 15px;
+        font-size: 16px;
+      }
+
+      .eyebrow {
+        margin-bottom: 10px;
+      }
+
       .product-stage {
-        --mock-scale: .68;
-        --stage-height: 322px;
+        --mock-scale: .62;
+        --stage-height: 295px;
+        max-height: 320px;
+      }
+
+      .mockup-composition {
+        transform: scale(var(--mock-scale,.62));
+        transform-origin: top center;
+        overflow: visible;
+      }
+
+      .form-submit .icon,
+      .price-card .button .icon {
+        width: 15px;
+        height: 15px;
+      }
+
+      .product-caption {
+        gap: 4px 12px;
       }
     }
 
-    @media (min-width: 480px) {
+    @media (max-width: 380px) {
       .container {
-        width: min(calc(100% - 56px), 1180px);
+        width: calc(100% - 32px);
+      }
+
+      .btn-long {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .product-stage {
+        --mock-scale: .60;
+        --stage-height: 286px;
+      }
+
+      .sample-panel {
+        padding: 26px 20px;
+      }
+
+      .form-card {
+        padding-inline: 18px;
+      }
+
+      .price-card {
+        padding-inline: 22px;
+      }
+    }
+
+    @media (max-width: 340px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .site-header .wordmark {
+        font-size: 16px;
+      }
+
+      .site-header .brand-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .hero h1 {
+        font-size: 37px;
+      }
+
+      .hero-actions .button,
+      .form-submit,
+      .price-card .button {
+        padding-inline: 10px;
+      }
+
+      .product-stage {
+        --mock-scale: .53;
+        --stage-height: 254px;
+      }
+
+      .meal-table th:first-child {
+        width: 20%;
+      }
+
+      .meal-table th:last-child {
+        width: 25%;
+      }
+    }
+
+    /* LARGE MOBILE / SMALL TABLET */
+
+    @media (min-width: 481px) {
+      .container {
+        width: min(calc(100% - 56px),1180px);
       }
 
       .hero-actions {
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .hero-actions .button {
+        width: auto;
       }
 
       .sample-panel {
@@ -1419,9 +1639,15 @@
       }
     }
 
+    /* TABLET */
+
     @media (min-width: 768px) {
+      :root {
+        --header-height: 72px;
+      }
+
       .container {
-        width: min(calc(100% - 80px), 1180px);
+        width: min(calc(100% - 80px),1180px);
       }
 
       .section {
@@ -1432,20 +1658,27 @@
         margin-bottom: 42px;
       }
 
+      .eyebrow {
+        margin-bottom: 14px;
+      }
+
       .header-inner {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 20px;
-        min-height: 74px;
-        padding-block: 10px;
+        height: 100%;
       }
 
       .main-nav {
+        display: flex;
         gap: 18px;
       }
 
       .header-buy {
-        flex-shrink: 0;
+        min-height: 44px;
+        padding: 10px 14px;
+        font-size: 13px;
       }
 
       .wordmark {
@@ -1458,14 +1691,14 @@
 
       .hero-grid {
         grid-template-columns:
-          minmax(0, 1.1fr)
-          minmax(0, .9fr);
+          minmax(0,1.1fr)
+          minmax(0,.9fr);
         align-items: start;
         gap: 32px;
       }
 
       .hero h1 {
-        font-size: clamp(43px, 5.7vw, 76px);
+        font-size: clamp(43px,5.7vw,76px);
       }
 
       .hero-description {
@@ -1492,7 +1725,7 @@
 
       .feature-grid {
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(2,minmax(0,1fr));
         gap: 18px;
       }
 
@@ -1502,31 +1735,32 @@
 
       .week-layout {
         grid-template-columns:
-          minmax(0, .85fr)
-          minmax(0, 1.15fr);
+          minmax(0,.85fr)
+          minmax(0,1.15fr);
         gap: 40px;
       }
 
       .stats-grid {
         grid-template-columns:
-          repeat(3, minmax(0, 1fr));
+          repeat(3,minmax(0,1fr));
         gap: 0;
       }
 
       .stat {
-        padding: 10px 16px !important;
+        padding: 10px 16px;
         border-bottom: 0;
         border-right: 1px solid var(--hairline);
       }
 
       .stat:last-child {
+        padding-bottom: 10px;
         border-right: 0;
       }
 
       .sample-panel {
         grid-template-columns:
-          minmax(0, 1fr)
-          minmax(0, .9fr);
+          minmax(0,1fr)
+          minmax(0,.9fr);
         align-items: center;
         gap: 30px;
         padding: 35px;
@@ -1534,8 +1768,8 @@
 
       .pricing-grid {
         grid-template-columns:
-          minmax(0, 1fr)
-          minmax(0, .85fr);
+          minmax(0,1fr)
+          minmax(0,.85fr);
         gap: 50px;
       }
 
@@ -1545,7 +1779,7 @@
 
       .testimonial-grid {
         grid-template-columns:
-          repeat(3, minmax(0, 1fr));
+          repeat(3,minmax(0,1fr));
       }
 
       .testimonial {
@@ -1558,8 +1792,8 @@
 
       .faq-layout {
         grid-template-columns:
-          minmax(0, .75fr)
-          minmax(0, 1.25fr);
+          minmax(0,.75fr)
+          minmax(0,1.25fr);
         gap: 50px;
       }
 
@@ -1569,6 +1803,8 @@
         align-items: center;
       }
     }
+
+    /* DESKTOP */
 
     @media (min-width: 1024px) {
       .section {
@@ -1603,12 +1839,11 @@
 
       .header-buy {
         padding-inline: 18px;
-        font-size: 13px;
       }
 
       .feature-grid {
         grid-template-columns:
-          repeat(3, minmax(0, 1fr));
+          repeat(3,minmax(0,1fr));
       }
 
       .feature-card {
@@ -1660,64 +1895,7 @@
       }
     }
 
-    @media (max-width: 379px) {
-      .container {
-        width: calc(100% - 32px);
-      }
-
-      .wordmark {
-        font-size: 17px;
-      }
-
-      .brand-icon {
-        width: 25px;
-        height: 25px;
-      }
-
-      .header-buy {
-        padding-inline: 9px;
-        font-size: 11px;
-      }
-
-      .hero h1 {
-        font-size: 40px;
-      }
-
-      .button {
-        padding-inline: 12px;
-        font-size: 14px;
-      }
-
-      .header-buy {
-        font-size: 11px;
-      }
-
-      .product-stage {
-        --mock-scale: .60;
-        --stage-height: 288px;
-      }
-    }
-
-    /*
-      Preserve the complete, unclipped mockup if JavaScript
-      is disabled. The media-query scale values above are
-      conservative fallbacks for common viewport widths.
-    */
-
-    @media (max-width: 340px) {
-      .product-stage {
-        --mock-scale: .53;
-        --stage-height: 256px;
-      }
-
-      .header-inner {
-        gap: 8px;
-      }
-
-      .hero h1 {
-        font-size: 37px;
-      }
-    }
+    /* REDUCED MOTION */
 
     @media (prefers-reduced-motion: reduce) {
       html {
@@ -1734,6 +1912,8 @@
         transform: none;
       }
     }
+
+    /* PRINT */
 
     @media print {
       .site-header,
@@ -1796,21 +1976,26 @@
     5. Confirm the supplied $24 reference price and included product materials.
     6. Publish actual Privacy, Terms, Contact, and refund information before launch.
 
-    Revision notes:
+    Mobile and polish revision:
 
-    - Eyebrow prefixes removed throughout.
-    - Updated heading and body typography.
-    - Rebuilt the layered product mockup with a responsive scaled composition.
-    - Updated primary and secondary CTA styles.
-    - Applied the requested terracotta headline accent.
-    - Aligned the desktop hero columns at the top.
-    - Added full-width, 80%-opacity hairline section dividers.
-    - Slightly adjusted weekly table column widths to protect narrow layouts.
-    - Original section copy, form IDs, CTA contract, and FAQ behavior retained.
+    - Single-row 60px mobile header and 72px desktop header.
+    - Mobile navigation hidden; the price suffix is hidden at 380px and below.
+    - Navigation remains hidden at intermediate widths below 768px to prevent
+      overcrowding within the fixed-height header.
+    - Anchored sections have an 80px scroll margin.
+    - Body copy uses #3A362F; muted metadata retains #6E675C.
+    - Mobile hero buttons are full-width, with a 14px vertical gap.
+    - Eyebrow spacing is 10px on mobile and 14px on desktop.
+    - The mobile mockup scales to .62 at 390px, with additional scaling
+      for narrower screens and a maximum stage height of 320px.
+    - Mockup cards have been repositioned slightly to reduce text obstruction.
+    - Interactive controls have minimum 44px touch targets.
+    - Inline SVG favicon and Pinterest-friendly metadata added.
+    - Original copy, section order, CTA contract, form IDs, and FAQ retained.
 
-    The page itself makes no external network requests on load.
-    Browser-based visual verification at the specified viewport widths
-    has not been performed in this response.
+    The page makes no external network requests on load.
+    Browser-based verification at all target viewport widths has not
+    been performed in this response.
   -->
 
   <!-- LOCAL SVG ICON LIBRARY -->
@@ -1876,6 +2061,7 @@
       </symbol>
 
       <symbol id="i-brand" viewBox="0 0 32 32">
+
         <g fill="none"
            stroke="currentColor"
            stroke-width="1.4"
@@ -1888,9 +2074,11 @@
           <path d="M16 23V9M16 14c-5 0-6-3-6-5 4 0 6 2 6 5ZM16 19c5 0 6-3 6-5-4 0-6 2-6 5Z"/>
 
         </g>
+
       </symbol>
 
     </defs>
+
   </svg>
 
   <a class="skip-link" href="#main">
@@ -1925,9 +2113,10 @@
 
       <a class="button button-primary header-buy"
          href="#buy"
-         data-cta="buy">
+         data-cta="buy"
+         aria-label="Get the plan — $12">
 
-        Get the plan — $12
+        Get the plan<span class="btn-long">— $12</span>
 
       </a>
 
@@ -2665,12 +2854,6 @@
                   Please enable JavaScript to use the sample form.
                 </p>
 
-                <style>
-                  #lead .form-submit {
-                    display: none;
-                  }
-                </style>
-
               </noscript>
 
             </form>
@@ -3284,7 +3467,7 @@
       );
 
       /*
-       * Sticky header
+       * Sticky header.
        */
 
       const header = document.getElementById("header");
@@ -3319,53 +3502,69 @@
       /*
        * Responsive product composition.
        *
-       * Scale all three mockup layers together instead of resizing
-       * individual text and card elements independently.
-       *
-       * The fixed 500 x 460 canvas includes the full rotated
-       * card boundaries and surrounding shadow clearance.
+       * Scale all three layers together.
+       * Mobile scale is capped at .62.
+       * Mobile stage height is capped at 320px.
+       * Narrower screens receive a smaller scale.
+       * No clipping or hidden overflow is used.
        */
 
       const productStage = document.getElementById(
         "product-stage"
       );
 
+      const mobileViewport = window.matchMedia(
+        "(max-width: 480px)"
+      );
+
       const MOCKUP_WIDTH = 500;
       const MOCKUP_HEIGHT = 460;
-      const MOCKUP_MAX_SCALE = 1.12;
       const MOCKUP_INSET = 16;
-      const MOCKUP_BOTTOM_SPACE = 10;
+      const MOCKUP_BOTTOM_SPACE = 9;
 
-      let previousMockupWidth = 0;
+      let previousMockupWidth = -1;
+      let previousMobileState = null;
 
       function resizeMockup() {
         if (!productStage) return;
 
         const availableWidth = productStage.clientWidth;
+        const isMobile = mobileViewport.matches;
+
+        if (availableWidth <= 0) return;
 
         if (
-          availableWidth <= 0 ||
           Math.abs(
             availableWidth - previousMockupWidth
-          ) < 1
+          ) < 1 &&
+          previousMobileState === isMobile
         ) {
           return;
         }
 
         previousMockupWidth = availableWidth;
+        previousMobileState = isMobile;
 
-        const scale = Math.min(
-          MOCKUP_MAX_SCALE,
-          Math.max(
-            0.01,
-            (availableWidth - MOCKUP_INSET) /
-            MOCKUP_WIDTH
-          )
+        const maximumScale = isMobile ? .62 : 1.12;
+
+        const widthScale = Math.max(
+          .01,
+          (availableWidth - MOCKUP_INSET) /
+          MOCKUP_WIDTH
         );
 
-        const stageHeight =
+        const scale = Math.min(
+          maximumScale,
+          widthScale
+        );
+
+        const naturalHeight =
           MOCKUP_HEIGHT * scale +
           MOCKUP_BOTTOM_SPACE;
+
+        const stageHeight = isMobile
+          ? Math.min(320,naturalHeight)
+          : naturalHeight;
 
         productStage.style.setProperty(
           "--mock-scale",
@@ -3386,51 +3585,65 @@
         );
 
         mockupObserver.observe(productStage);
-      } else {
-        let resizeScheduled = false;
+      }
 
-        window.addEventListener(
-          "resize",
-          () => {
-            if (resizeScheduled) return;
+      let resizeScheduled = false;
 
-            resizeScheduled = true;
+      window.addEventListener(
+        "resize",
+        () => {
+          if (resizeScheduled) return;
 
-            window.requestAnimationFrame(() => {
-              resizeScheduled = false;
-              resizeMockup();
-            });
-          },
-          { passive: true }
+          resizeScheduled = true;
+
+          window.requestAnimationFrame(() => {
+            resizeScheduled = false;
+            resizeMockup();
+          });
+        },
+        { passive: true }
+      );
+
+      function refreshMockup() {
+        previousMockupWidth = -1;
+        previousMobileState = null;
+        resizeMockup();
+      }
+
+      if (
+        typeof mobileViewport.addEventListener ===
+        "function"
+      ) {
+        mobileViewport.addEventListener(
+          "change",
+          refreshMockup
         );
       }
 
       window.addEventListener(
         "beforeprint",
-        () => {
-          previousMockupWidth = 0;
-          resizeMockup();
-        }
+        refreshMockup
       );
 
       window.addEventListener(
         "afterprint",
-        () => {
-          previousMockupWidth = 0;
-          resizeMockup();
-        }
+        refreshMockup
       );
 
       /*
        * FAQ accordion.
-       * Answers remain accessible when JavaScript is unavailable.
+       *
+       * One answer is open at a time.
+       * Clicking an open question closes it.
+       * Arrow keys, Home, and End navigate the questions.
+       * All answers remain visible without JavaScript.
        */
 
       const faqButtons = Array.from(
         document.querySelectorAll(".faq-question")
       );
 
-      function setFaqState(button, expanded) {
+      function setFaqState(button,expanded) {
         const panelId = button.getAttribute(
           "aria-controls"
         );
@@ -3449,20 +3662,20 @@
         panel.hidden = !expanded;
       }
 
-      faqButtons.forEach((button, index) => {
-        setFaqState(button, index === 0);
+      faqButtons.forEach((button,index) => {
+        setFaqState(button,index === 0);
 
-        button.addEventListener("click", () => {
+        button.addEventListener("click",() => {
           const wasExpanded =
             button.getAttribute("aria-expanded") ===
             "true";
 
           faqButtons.forEach(item => {
-            setFaqState(item, false);
+            setFaqState(item,false);
           });
 
           if (!wasExpanded) {
-            setFaqState(button, true);
+            setFaqState(button,true);
           }
         });
 
@@ -3512,6 +3725,7 @@
 
       /*
        * Email form.
+       *
        * Local demonstration only.
        * No email is transmitted or stored.
        */
@@ -3575,7 +3789,7 @@
         }
       }
 
-      emailInput.addEventListener("input", () => {
+      emailInput.addEventListener("input",() => {
         if (
           emailInput.getAttribute("aria-invalid") ===
           "true"
@@ -3584,7 +3798,7 @@
         }
       });
 
-      emailInput.addEventListener("blur", () => {
+      emailInput.addEventListener("blur",() => {
         if (emailInput.value.trim()) {
           showEmailError(validateEmail());
         }
@@ -3641,6 +3855,9 @@
 
       /*
        * Smooth anchor scrolling.
+       *
+       * Native scrollIntoView respects the CSS scroll margin.
+       * Anchored sections remain below the sticky header.
        */
 
       document.querySelectorAll(
@@ -3680,21 +3897,30 @@
                 "skip-link"
               );
 
-            const headerOffset =
-              header.offsetHeight + 18;
+            const hadTabindex =
+              target.hasAttribute(
+                "tabindex"
+              );
 
-            const targetTop =
-              target.getBoundingClientRect().top +
-              window.scrollY -
-              headerOffset;
+            if (!hadTabindex) {
+              target.setAttribute(
+                "tabindex",
+                "-1"
+              );
+            }
 
-            window.scrollTo({
-              top: Math.max(0, targetTop),
+            target.focus({
+              preventScroll: true
+            });
+
+            target.scrollIntoView({
               behavior:
                 reducedMotion.matches ||
                 isSkipLink
-                  ? "auto"
-                  : "smooth"
+                  ? "instant"
+                  : "smooth",
+              block: "start",
+              inline: "nearest"
             });
 
             if (
@@ -3715,22 +3941,6 @@
               }
             }
 
-            const hadTabindex =
-              target.hasAttribute(
-                "tabindex"
-              );
-
-            if (!hadTabindex) {
-              target.setAttribute(
-                "tabindex",
-                "-1"
-              );
-            }
-
-            target.focus({
-              preventScroll: true
-            });
-
             if (!hadTabindex) {
               target.addEventListener(
                 "blur",
@@ -3748,7 +3958,8 @@
 
       /*
        * Subtle reveal-on-scroll.
-       * Only enabled when IntersectionObserver is supported
+       *
+       * Enabled only when IntersectionObserver is supported
        * and reduced motion has not been requested.
        */
 
@@ -3846,6 +4057,19 @@
 
     })();
   </script>
+
+  <noscript>
+    <style>
+      #lead .form-submit {
+        display: none;
+      }
+
+      .reveal-pending {
+        opacity: 1;
+        transform: none;
+      }
+    </style>
+  </noscript>
 
 </body>
 </html>
