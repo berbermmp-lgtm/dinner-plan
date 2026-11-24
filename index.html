@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FAF6EF">
-  <meta name="description" content="Plan 28 easy family dinners with weekly grocery lists and prep-ahead schedules. All recipes take 30 minutes or less. Download the 4-week PDF for $12.">
+  <meta name="description" content="28 вечерь, готові списки покупок і план підготовки на 4 тижні. Прості сімейні рецепти до 30 хвилин. Завантажуйте PDF за $12.">
 
-  <title>The 4-Week Dinner Plan | 28 Easy Family Dinners</title>
+  <title>План вечерь на 4 тижні — 28 простих рецептів</title>
 
+  <link rel="alternate" hreflang="en" href="en.html">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23B4552F'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='16' fill='%23FAF6EF' text-anchor='middle'%3E4%3C/text%3E%3C/svg%3E">
 
   <style>
@@ -50,7 +51,9 @@
     }
 
     section[id],
-    main[id] {
+    main[id],
+    #buy,
+    #week-preview {
       scroll-margin-top: 80px;
     }
 
@@ -72,11 +75,11 @@
     }
 
     h1 {
-      font-size: clamp(42px, 6vw, 76px);
+      font-size: clamp(40px,6vw,76px);
     }
 
     h2 {
-      font-size: clamp(34px, 4.5vw, 52px);
+      font-size: clamp(32px,4.5vw,52px);
     }
 
     h3 {
@@ -120,7 +123,7 @@
     }
 
     .container {
-      width: min(calc(100% - 40px), 1180px);
+      width: min(calc(100% - 40px),1180px);
       margin-inline: auto;
       min-width: 0;
     }
@@ -315,6 +318,14 @@
       color: var(--accent-deep);
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
     .header-buy {
       gap: 0;
       flex-shrink: 0;
@@ -326,6 +337,63 @@
 
     .btn-long {
       margin-left: 4px;
+    }
+
+    /* LANGUAGE SWITCHER */
+
+    .langs {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .lang {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 6px 9px;
+      border: 1px solid #E4DCCE;
+      border-radius: 8px;
+      color: #3A362F;
+      background: #FFFFFF;
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .lang.is-active {
+      border-color: #1C1A17;
+      background: #1C1A17;
+      color: #FAF6EF;
+      cursor: default;
+    }
+
+    a.lang:hover {
+      color: var(--accent-deep);
+      border-color: var(--accent-deep);
+    }
+
+    /*
+      Keep the language switcher visually compact while
+      preserving a minimum 44 x 44px interactive touch area.
+    */
+
+    a.lang::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100%,44px);
+      height: max(100%,44px);
+      transform: translate(-50%,-50%);
+      content: "";
     }
 
     /* HERO */
@@ -399,7 +467,7 @@
       position: relative;
       isolation: isolate;
       width: 100%;
-      height: var(--stage-height, 294px);
+      height: var(--stage-height,294px);
       overflow: visible;
       border: 1px solid #DED2C1;
       border-radius: 20px;
@@ -418,13 +486,6 @@
         ),
         linear-gradient(145deg,#EFE7DA,#E1D5C2);
     }
-
-    /*
-      The 500 x 460 composition is scaled as one unit.
-      At 390px viewport width, its scale is .62 and its
-      stage height is approximately 295px.
-      Text and card shadows remain visible without clipping.
-    */
 
     .mockup-composition {
       position: absolute;
@@ -452,8 +513,6 @@
       content: "";
       pointer-events: none;
     }
-
-    /* Main book */
 
     .book {
       position: absolute;
@@ -522,7 +581,7 @@
       font-family: var(--sans);
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: .12em;
+      letter-spacing: .10em;
       line-height: 1.5;
       text-transform: uppercase;
     }
@@ -532,7 +591,7 @@
       margin-top: 18px;
       color: var(--ink);
       font-family: var(--serif);
-      font-size: 39px;
+      font-size: 37px;
       font-weight: 400;
       line-height: 1.06;
       letter-spacing: -.012em;
@@ -560,11 +619,9 @@
       color: #75624F;
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: .09em;
+      letter-spacing: .06em;
       line-height: 1.5;
     }
-
-    /* Recipe card behind the book */
 
     .recipe-card-mock {
       position: absolute;
@@ -613,8 +670,6 @@
       font-weight: 600;
     }
 
-    /* Grocery list in the foreground */
-
     .mock-sheet {
       position: absolute;
       z-index: 4;
@@ -648,7 +703,7 @@
       margin-bottom: 12px;
       color: var(--ink);
       font-family: var(--serif);
-      font-size: 25px;
+      font-size: 23px;
       font-weight: 400;
       line-height: 1.06;
       letter-spacing: -.012em;
@@ -1432,7 +1487,7 @@
       font-size: 11px;
     }
 
-    /* PROGRESSIVE SCROLL REVEAL */
+    /* SCROLL REVEAL */
 
     .reveal-pending {
       opacity: 0;
@@ -1462,19 +1517,38 @@
       }
 
       .site-header .wordmark {
-        font-size: 17px;
-        gap: 7px;
+        font-size: 15px;
+        gap: 6px;
+        flex-shrink: 1;
+        min-width: 0;
       }
 
       .site-header .brand-icon {
-        width: 26px;
-        height: 26px;
+        width: 23px;
+        height: 23px;
+      }
+
+      .header-actions {
+        gap: 9px;
       }
 
       .header-buy {
         min-height: 44px;
         padding: 10px 14px;
         font-size: 14px;
+      }
+
+      .langs {
+        gap: 6px;
+      }
+
+      .lang {
+        min-height: 30px;
+        height: 30px;
+        padding: 5px 6px;
+        font-size: 12.5px;
+        letter-spacing: .08em;
+        border-radius: 8px;
       }
 
       .hero-actions {
@@ -1532,6 +1606,10 @@
         display: none;
       }
 
+      .header-buy {
+        padding-inline: 10px;
+      }
+
       .hero h1 {
         font-size: 40px;
       }
@@ -1559,13 +1637,27 @@
         width: calc(100% - 28px);
       }
 
+      .header-inner {
+        gap: 8px;
+      }
+
       .site-header .wordmark {
-        font-size: 16px;
+        font-size: 14px;
+        gap: 5px;
       }
 
       .site-header .brand-icon {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .header-actions {
+        gap: 7px;
+      }
+
+      .header-buy {
+        padding-inline: 8px;
+        font-size: 13px;
       }
 
       .hero h1 {
@@ -1666,13 +1758,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 20px;
+        gap: 16px;
         height: 100%;
       }
 
       .main-nav {
         display: flex;
-        gap: 18px;
+        gap: 14px;
       }
 
       .header-buy {
@@ -1804,6 +1896,43 @@
       }
     }
 
+    @media (min-width: 768px) and (max-width: 900px) {
+      .site-header .wordmark {
+        font-size: 16px;
+        gap: 6px;
+      }
+
+      .site-header .brand-icon {
+        width: 25px;
+        height: 25px;
+      }
+
+      .header-inner {
+        gap: 10px;
+      }
+
+      .main-nav {
+        gap: 10px;
+      }
+
+      .main-nav a {
+        font-size: 12px;
+      }
+
+      .header-actions {
+        gap: 8px;
+      }
+
+      .header-buy {
+        padding-inline: 10px;
+        font-size: 12px;
+      }
+
+      .lang {
+        padding-inline: 7px;
+      }
+    }
+
     /* DESKTOP */
 
     @media (min-width: 1024px) {
@@ -1834,7 +1963,7 @@
       }
 
       .main-nav {
-        gap: 32px;
+        gap: 26px;
       }
 
       .header-buy {
@@ -1964,38 +2093,31 @@
 <body>
 
   <!--
-    Deployment notes:
+    Примітки перед публікацією:
 
-    1. Replace the generic Gumroad URL with the actual product checkout URL.
-    2. Connect the sample form to an email delivery service before accepting leads.
-       The current form demonstrates validation and confirmation only.
-    3. Testimonials are explicitly labeled illustrative scenarios, not verified
-       customer reviews. Replace them with authentic, authorized testimonials.
-    4. The sample menu and illustrated product cover are illustrative;
-       verify them against the final PDF.
-    5. Confirm the supplied $24 reference price and included product materials.
-    6. Publish actual Privacy, Terms, Contact, and refund information before launch.
+    1. Замініть загальне посилання Gumroad на адресу сторінки оплати товару.
+    2. Підключіть сервіс надсилання листів. Поточна форма лише перевіряє
+       адресу електронної пошти та показує демонстраційне підтвердження.
+    3. Приклади відгуків є вигаданими та відповідно позначеними.
+       Перед запуском замініть їх справжніми відгуками покупців.
+    4. Українське меню та макет обкладинки є ілюстративними.
+       Перевірте їхню відповідність фактичному вмісту PDF.
+    5. Перевірте актуальність звичайної ціни $24 та комплектацію продукту.
+    6. Додайте політику конфіденційності, умови продажу, контакти
+       й умови повернення коштів.
+    7. Збережіть попередню англомовну версію поруч із цим файлом
+       під назвою en.html. Перемикач EN відкриває саме цей локальний файл.
+       Англомовна версія не вбудована в поточний HTML.
+    8. Ідентифікатори секцій відповідають новому переліку.
+       Старі якорі #buy та #week-preview збережено для сумісності.
+    9. Перемикач мови має компактні візуальні розміри та розширену
+       інтерактивну область 44 x 44px.
+    10. Українські написи адаптовано за розмірами для мобільного хедера.
+        На вузьких екранах кнопка скорочується до «Купити».
 
-    Mobile and polish revision:
-
-    - Single-row 60px mobile header and 72px desktop header.
-    - Mobile navigation hidden; the price suffix is hidden at 380px and below.
-    - Navigation remains hidden at intermediate widths below 768px to prevent
-      overcrowding within the fixed-height header.
-    - Anchored sections have an 80px scroll margin.
-    - Body copy uses #3A362F; muted metadata retains #6E675C.
-    - Mobile hero buttons are full-width, with a 14px vertical gap.
-    - Eyebrow spacing is 10px on mobile and 14px on desktop.
-    - The mobile mockup scales to .62 at 390px, with additional scaling
-      for narrower screens and a maximum stage height of 320px.
-    - Mockup cards have been repositioned slightly to reduce text obstruction.
-    - Interactive controls have minimum 44px touch targets.
-    - Inline SVG favicon and Pinterest-friendly metadata added.
-    - Original copy, section order, CTA contract, form IDs, and FAQ retained.
-
-    The page makes no external network requests on load.
-    Browser-based verification at all target viewport widths has not
-    been performed in this response.
+    Сторінка не завантажує зовнішні ресурси.
+    Перевірку в реальному браузері на всіх заданих ширинах
+    у межах цієї відповіді не виконано.
   -->
 
   <!-- LOCAL SVG ICON LIBRARY -->
@@ -2078,11 +2200,10 @@
       </symbol>
 
     </defs>
-
   </svg>
 
   <a class="skip-link" href="#main">
-    Skip to content
+    Перейти до основного вмісту
   </a>
 
   <!-- 01. HEADER -->
@@ -2093,32 +2214,55 @@
 
       <a class="wordmark"
          href="#top"
-         aria-label="The 4-Week Dinner Plan home">
+         aria-label="План вечерь на 4 тижні — головна">
 
         <svg class="brand-icon" aria-hidden="true">
           <use href="#i-brand"></use>
         </svg>
 
-        <span>The 4-Week<br>Dinner Plan</span>
+        <span>План вечерь<br>на 4 тижні</span>
 
       </a>
 
-      <nav class="main-nav" aria-label="Main navigation">
+      <nav class="main-nav" aria-label="Основна навігація">
 
-        <a href="#inside">What's inside</a>
-        <a href="#sample">Sample</a>
-        <a href="#faq">FAQ</a>
+        <a href="#inside">Що всередині</a>
+        <a href="#sample">Зразок</a>
+        <a href="#faq">Запитання</a>
 
       </nav>
 
-      <a class="button button-primary header-buy"
-         href="#buy"
-         data-cta="buy"
-         aria-label="Get the plan — $12">
+      <div class="header-actions">
 
-        Get the plan<span class="btn-long">— $12</span>
+        <a class="button button-primary header-buy"
+           href="#buy"
+           data-cta="buy"
+           aria-label="Купити план вечерь за 12 доларів">
 
-      </a>
+          Купити<span class="btn-long">— $12</span>
+
+        </a>
+
+        <div class="langs"
+             role="group"
+             aria-label="Мова сайту">
+
+          <span class="lang is-active"
+                aria-current="true"
+                lang="uk"
+                aria-label="Українська">
+            UA
+          </span>
+
+          <a class="lang"
+             href="en.html"
+             hreflang="en"
+             lang="en"
+             aria-label="Switch to English">EN</a>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -2136,16 +2280,18 @@
 
         <div class="hero-copy">
 
-          <div class="eyebrow">FOR BUSY MOMS</div>
+          <div class="eyebrow">
+            Для зайнятих мам
+          </div>
 
           <h1 id="hero-title">
-            Dinner is decided for the next <em>4 weeks.</em>
+            Вечері на наступні <em>4 тижні</em> вже сплановані.
           </h1>
 
           <p class="hero-description">
-            No more staring into the fridge at 5 p.m.
-            Get four weeks of easy family dinners, ready-made
-            grocery lists, and a prep plan that fits your workweek.
+            Більше не потрібно щовечора вигадувати, що приготувати.
+            Готове сімейне меню, списки покупок і план підготовки,
+            який легко вписати в робочий тиждень.
           </p>
 
           <div class="hero-actions">
@@ -2154,7 +2300,7 @@
                href="#buy"
                data-cta="buy">
 
-              Get the 4-week plan — $12
+              Отримати план на 4 тижні — $12
 
               <svg class="icon" aria-hidden="true">
                 <use href="#i-arrow"></use>
@@ -2162,8 +2308,11 @@
 
             </a>
 
-            <a class="button button-secondary" href="#sample">
-              Try 3 days free
+            <a class="button button-secondary"
+               href="#sample">
+
+              Спробувати 3 дні безкоштовно
+
             </a>
 
           </div>
@@ -2175,7 +2324,8 @@
             </svg>
 
             <span>
-              Instant PDF download · Works on phone, tablet, print
+              Миттєве завантаження PDF · Для телефона,
+              планшета та друку
             </span>
 
           </p>
@@ -2187,7 +2337,7 @@
           <div class="product-stage"
                id="product-stage"
                role="img"
-               aria-label="Illustrated product preview showing a paper-covered four-week dinner plan book, an overlapping six-item grocery checklist, and a recipe card behind the book.">
+               aria-label="Ілюстрація плану вечерь на чотири тижні: книга рецептів, картка страви та список покупок із шести продуктів.">
 
             <div class="mockup-composition" aria-hidden="true">
 
@@ -2197,11 +2347,11 @@
 
                 <div class="recipe-card-content">
 
-                  <strong>Lemon chicken &amp; rice</strong>
+                  <strong>Куряче філе з гречкою</strong>
 
-                  <small>Family dinner / 25 min</small>
-                  <small>Lemon, garlic, chicken</small>
-                  <small>Serve with fluffy rice</small>
+                  <small>Сімейна вечеря · 30 хв</small>
+                  <small>Курка, гречка, гриби</small>
+                  <small>Подавати гарячим</small>
 
                 </div>
 
@@ -2212,12 +2362,12 @@
               <div class="book">
 
                 <div class="book-kicker">
-                  THE 4-WEEK DINNER PLAN
+                  План вечерь на 4 тижні
                 </div>
 
                 <div class="book-title">
-                  28 dinners,
-                  <span>4 weeks</span>
+                  28 вечерь,
+                  <span>4 тижні</span>
                 </div>
 
                 <svg class="book-art"
@@ -2364,7 +2514,7 @@
                 </svg>
 
                 <div class="book-edition">
-                  48-page PDF
+                  48 сторінок · PDF
                 </div>
 
               </div>
@@ -2374,21 +2524,21 @@
               <div class="mock-sheet">
 
                 <div class="sheet-kicker">
-                  Week one
+                  Перший тиждень
                 </div>
 
                 <div class="sheet-title">
-                  Grocery list
+                  Список покупок
                 </div>
 
                 <ul class="sheet-list">
 
-                  <li class="sheet-row">Chicken breasts</li>
-                  <li class="sheet-row">Ground beef</li>
-                  <li class="sheet-row">Cherry tomatoes</li>
-                  <li class="sheet-row">Fresh lemons</li>
-                  <li class="sheet-row">Rice &amp; pasta</li>
-                  <li class="sheet-row">Mixed vegetables</li>
+                  <li class="sheet-row">Куряче філе</li>
+                  <li class="sheet-row">Гречка та рис</li>
+                  <li class="sheet-row">Свіжі томати</li>
+                  <li class="sheet-row">Печериці</li>
+                  <li class="sheet-row">Картопля</li>
+                  <li class="sheet-row">Сезонні овочі</li>
 
                 </ul>
 
@@ -2400,8 +2550,8 @@
 
           <figcaption class="product-caption">
 
-            <span>Illustrated digital product preview</span>
-            <span>48-page PDF · 4 complete weeks</span>
+            <span>Ілюстративний вигляд посібника</span>
+            <span>48 сторінок PDF · 4 тижні меню</span>
 
           </figcaption>
 
@@ -2421,15 +2571,18 @@
 
         <div class="section-heading" data-reveal>
 
-          <div class="eyebrow">What's inside</div>
+          <div class="eyebrow">
+            Що всередині
+          </div>
 
           <h2 id="inside-title">
-            Everything you need to get dinner on the table.
+            Усе необхідне, щоб щовечора нагодувати родину.
           </h2>
 
           <p>
-            One download replaces the recipe searches, scattered
-            shopping notes, and last-minute dinner decisions.
+            Один файл замість десятків збережених рецептів,
+            розрізнених списків покупок і щоденних роздумів
+            про те, що приготувати.
           </p>
 
         </div>
@@ -2446,11 +2599,11 @@
 
             </div>
 
-            <h3>28 dinners, already decided</h3>
+            <h3>28 вечерь уже сплановано</h3>
 
             <p>
-              Four complete weeks of family meals using ingredients
-              from your usual supermarket.
+              Чотири тижні сімейних страв із продуктів,
+              які легко знайти у звичайному супермаркеті.
             </p>
 
           </article>
@@ -2465,11 +2618,11 @@
 
             </div>
 
-            <h3>Shop once, with a list</h3>
+            <h3>Один похід за покупками</h3>
 
             <p>
-              Ready-made weekly grocery lists tell you what to buy
-              for the dinners ahead.
+              Готові списки продуктів на кожен тиждень,
+              щоб нічого не забути й не повертатися до магазину.
             </p>
 
           </article>
@@ -2484,11 +2637,11 @@
 
             </div>
 
-            <h3>Get ahead of the week</h3>
+            <h3>Підготуйте все заздалегідь</h3>
 
             <p>
-              A simple prep-ahead schedule helps you get the chopping
-              and other prep out of the way early.
+              Простий графік підготовки підкаже,
+              що можна нарізати, помити чи підготувати наперед.
             </p>
 
           </article>
@@ -2503,11 +2656,11 @@
 
             </div>
 
-            <h3>Dinner in 30 minutes</h3>
+            <h3>Вечеря за 30 хвилин</h3>
 
             <p>
-              Every recipe takes 30 minutes or less, because weeknights
-              are busy enough already.
+              Кожна страва готується не довше пів години,
+              адже після роботи хочеться ще й відпочити.
             </p>
 
           </article>
@@ -2522,11 +2675,11 @@
 
             </div>
 
-            <h3>Lunchboxes made easier</h3>
+            <h3>Прості перекуси та обіди</h3>
 
             <p>
-              Snack and lunch add-ons give you a few extra ideas
-              for those busy school and work days.
+              Додаткові ідеї для шкільних ланчбоксів,
+              перекусів і обідів, які зручно взяти на роботу.
             </p>
 
           </article>
@@ -2541,11 +2694,11 @@
 
             </div>
 
-            <h3>Keep the week in sight</h3>
+            <h3>Меню завжди перед очима</h3>
 
             <p>
-              Printable planner pages make it easy to put the menu
-              on your fridge for everyone to see.
+              Роздрукуйте тижневий план і повісьте його
+              на холодильник, щоб уся родина знала, що на вечерю.
             </p>
 
           </article>
@@ -2559,32 +2712,37 @@
     <!-- 04. WEEK PREVIEW -->
 
     <section class="section"
-             id="week-preview"
+             id="week"
              aria-labelledby="week-title">
+
+      <div id="week-preview" aria-hidden="true"></div>
 
       <div class="container week-layout">
 
         <div class="week-copy" data-reveal>
 
-          <div class="eyebrow">A look at one week</div>
+          <div class="eyebrow">
+            Приклад тижневого меню
+          </div>
 
           <h2 id="week-title">
-            Imagine knowing what's for dinner every single night.
+            Ви вже знаєте, що готуватимете щовечора.
           </h2>
 
           <p>
-            Monday is chicken. Tuesday is tacos. Wednesday is pasta.
-            There's no need to come up with something new while
-            you're driving home from work.
+            У понеділок — курка з гречкою.
+            У вівторок — паста. У середу — гарбузовий суп.
+            Не потрібно вигадувати вечерю дорогою з роботи.
           </p>
 
           <p>
-            Familiar ingredients, straightforward recipes, and enough
-            variety to keep the week interesting.
+            Знайомі продукти, зрозумілі рецепти та різноманітні
+            страви, які не встигнуть набриднути.
           </p>
 
           <div class="week-aside">
-            Every week ends with a one-page grocery list.
+            Наприкінці кожного тижня — готовий список
+            покупок на одній сторінці.
           </div>
 
         </div>
@@ -2596,25 +2754,26 @@
             <div class="week-paper-header">
 
               <div>
-                <small>The weekly dinner menu</small>
-                <h3>Let's eat.</h3>
+                <small>Меню вечерь на тиждень</small>
+                <h3>Смачного!</h3>
               </div>
 
-              <span class="week-number" aria-hidden="true">
+              <span class="week-number"
+                    aria-hidden="true">
                 01
               </span>
 
             </div>
 
             <table class="meal-table"
-                   aria-label="Illustrative seven-day dinner menu">
+                   aria-label="Приклад меню вечерь на сім днів">
 
               <thead>
 
                 <tr>
-                  <th scope="col">Day</th>
-                  <th scope="col">What's cooking</th>
-                  <th scope="col">Time</th>
+                  <th scope="col">День</th>
+                  <th scope="col">Що готуємо</th>
+                  <th scope="col">Час</th>
                 </tr>
 
               </thead>
@@ -2622,45 +2781,45 @@
               <tbody>
 
                 <tr>
-                  <th scope="row">Mon</th>
-                  <td>Lemon chicken &amp; rice</td>
-                  <td>25 min</td>
+                  <th scope="row">Пн</th>
+                  <td>Куряче філе з гречкою та грибами</td>
+                  <td>30 хв</td>
                 </tr>
 
                 <tr>
-                  <th scope="row">Tue</th>
-                  <td>Easy beef tacos</td>
-                  <td>20 min</td>
+                  <th scope="row">Вт</th>
+                  <td>Паста з томатами й базиліком</td>
+                  <td>20 хв</td>
                 </tr>
 
                 <tr>
-                  <th scope="row">Wed</th>
-                  <td>Creamy tomato pasta</td>
-                  <td>25 min</td>
+                  <th scope="row">Ср</th>
+                  <td>Суп-пюре з гарбуза та грінки</td>
+                  <td>25 хв</td>
                 </tr>
 
                 <tr>
-                  <th scope="row">Thu</th>
-                  <td>Honey garlic chicken</td>
-                  <td>30 min</td>
+                  <th scope="row">Чт</th>
+                  <td>Котлети з індички й картопляне пюре</td>
+                  <td>30 хв</td>
                 </tr>
 
                 <tr>
-                  <th scope="row">Fri</th>
-                  <td>Homemade flatbread pizzas</td>
-                  <td>20 min</td>
+                  <th scope="row">Пт</th>
+                  <td>Овочеве рагу з квасолею</td>
+                  <td>25 хв</td>
                 </tr>
 
                 <tr>
-                  <th scope="row">Sat</th>
-                  <td>Sausage &amp; veggie skillet</td>
-                  <td>25 min</td>
+                  <th scope="row">Сб</th>
+                  <td>Риба, запечена з лимоном</td>
+                  <td>25 хв</td>
                 </tr>
 
                 <tr>
-                  <th scope="row">Sun</th>
-                  <td>Turkey meatball bowls</td>
-                  <td>30 min</td>
+                  <th scope="row">Нд</th>
+                  <td>Швидкий плов із куркою</td>
+                  <td>30 хв</td>
                 </tr>
 
               </tbody>
@@ -2673,14 +2832,15 @@
                 <use href="#i-check"></use>
               </svg>
 
-              One week. Seven dinners. No guessing.
+              Один тиждень. Сім вечерь. Усе сплановано.
 
             </figcaption>
 
           </figure>
 
           <p class="preview-note">
-            Illustrative menu showing how a planned week can look.
+            Ілюстративний приклад того, як може виглядати
+            готове меню на тиждень.
           </p>
 
         </div>
@@ -2692,6 +2852,7 @@
     <!-- 05. BENEFITS IN NUMBERS -->
 
     <section class="section section-soft stats-section"
+             id="stats"
              aria-labelledby="stats-title">
 
       <div class="container">
@@ -2699,7 +2860,7 @@
         <div class="stats-heading" data-reveal>
 
           <h2 id="stats-title">
-            Fewer decisions. Easier evenings.
+            Менше клопоту. Спокійніші вечори.
           </h2>
 
         </div>
@@ -2709,27 +2870,33 @@
           <div class="stat" data-reveal>
 
             <span class="stat-value">28</span>
-            <span class="stat-label">Dinners</span>
+            <span class="stat-label">Вечерь</span>
 
-            <p>One less decision every evening.</p>
+            <p>
+              Більше не потрібно щодня вигадувати меню.
+            </p>
 
           </div>
 
           <div class="stat" data-reveal>
 
             <span class="stat-value">4</span>
-            <span class="stat-label">Weeks</span>
+            <span class="stat-label">Тижні</span>
 
-            <p>A whole month of meals planned.</p>
+            <p>
+              Майже цілий місяць із готовим планом.
+            </p>
 
           </div>
 
           <div class="stat" data-reveal>
 
             <span class="stat-value">30</span>
-            <span class="stat-label">Min max</span>
+            <span class="stat-label">Хвилин максимум</span>
 
-            <p>From getting started to serving.</p>
+            <p>
+              Від початку приготування до подачі на стіл.
+            </p>
 
           </div>
 
@@ -2751,15 +2918,18 @@
 
           <div class="sample-copy">
 
-            <div class="eyebrow">Try it before you buy</div>
+            <div class="eyebrow">
+              Спробуйте перед покупкою
+            </div>
 
             <h2 id="sample-title">
-              Take three nights of dinner planning off your plate.
+              Три вечори без роздумів про те, що приготувати.
             </h2>
 
             <p>
-              Start with the free 3-day sample. See how the recipes,
-              shopping list, and prep schedule fit your family's routine.
+              Почніть із безкоштовного меню на три дні.
+              Перевірте, наскільки рецепти, списки покупок
+              і підготовка підходять саме вашій родині.
             </p>
 
             <ul class="check-list">
@@ -2770,7 +2940,7 @@
                   <use href="#i-check"></use>
                 </svg>
 
-                Three easy dinner recipes, each 30 minutes or less
+                Три прості рецепти вечерь до 30 хвилин
 
               </li>
 
@@ -2780,7 +2950,7 @@
                   <use href="#i-check"></use>
                 </svg>
 
-                One ready-to-use grocery list
+                Готовий список необхідних продуктів
 
               </li>
 
@@ -2790,7 +2960,7 @@
                   <use href="#i-check"></use>
                 </svg>
 
-                A simple prep-ahead plan
+                Зрозумілий план підготовки заздалегідь
 
               </li>
 
@@ -2800,16 +2970,19 @@
 
           <div class="form-card">
 
-            <form id="lead" method="post" novalidate>
+            <form id="lead"
+                  method="post"
+                  novalidate>
 
-              <h3>Get your free sample.</h3>
+              <h3>Отримайте безкоштовне меню.</h3>
 
               <p class="form-intro">
-                Three dinners. No purchase needed.
+                Три вечері. Без жодних покупок.
               </p>
 
-              <label class="field-label" for="email">
-                Email address
+              <label class="field-label"
+                     for="email">
+                Електронна пошта
               </label>
 
               <input class="email-input"
@@ -2818,7 +2991,7 @@
                      type="email"
                      autocomplete="email"
                      inputmode="email"
-                     placeholder="you@example.com"
+                     placeholder="Ваша електронна пошта"
                      maxlength="254"
                      aria-describedby="email-error form-note"
                      required>
@@ -2828,14 +3001,14 @@
                  role="alert"
                  hidden>
 
-                Please enter a valid email address.
+                Введіть коректну адресу електронної пошти.
 
               </p>
 
               <button class="button button-primary form-submit"
                       type="submit">
 
-                Send me the free sample
+                Отримати безкоштовне меню
 
                 <svg class="icon" aria-hidden="true">
                   <use href="#i-arrow"></use>
@@ -2843,15 +3016,19 @@
 
               </button>
 
-              <p class="form-privacy" id="form-note">
-                No payment details needed. Email delivery is not
-                connected in this preview.
+              <p class="form-privacy"
+                 id="form-note">
+
+                Платіжні дані не потрібні.
+                У демонстраційній версії надсилання листів
+                ще не підключено.
+
               </p>
 
               <noscript>
 
                 <p class="field-error">
-                  Please enable JavaScript to use the sample form.
+                  Увімкніть JavaScript, щоб скористатися формою.
                 </p>
 
               </noscript>
@@ -2873,18 +3050,19 @@
 
               </div>
 
-              <h3>You're all set!</h3>
+              <h3>Готово!</h3>
 
               <p>
-                Your sample request has been confirmed in this preview.
-                No email has been sent yet.
+                Запит на отримання меню підтверджено
+                в демонстраційній версії.
+                Електронний лист поки не надіслано.
               </p>
 
               <button class="button button-secondary form-submit"
                       id="reset-form"
                       type="button">
 
-                Back to the form
+                Повернутися до форми
 
               </button>
 
@@ -2901,24 +3079,28 @@
     <!-- 07. PRICING -->
 
     <section class="section section-soft"
-             id="buy"
+             id="pricing"
              aria-labelledby="pricing-title">
+
+      <div id="buy" aria-hidden="true"></div>
 
       <div class="container pricing-grid">
 
         <div class="pricing-copy" data-reveal>
 
           <div class="eyebrow">
-            One download. Four easier weeks.
+            Одне завантаження. Чотири спокійні тижні.
           </div>
 
           <h2 id="pricing-title">
-            A month of dinners, for less than one takeout order.
+            Місяць спланованих вечерь дешевше за одне
+            замовлення їжі додому.
           </h2>
 
           <p>
-            Pay once, keep the PDF, and come back to it whenever
-            your week needs a little structure.
+            Сплатіть один раз, збережіть PDF і повертайтеся
+            до нього щоразу, коли хочеться спростити
+            планування сімейних вечерь.
           </p>
 
           <ul class="check-list">
@@ -2929,7 +3111,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Complete 48-page downloadable PDF
+              Повний PDF-посібник на 48 сторінок
 
             </li>
 
@@ -2939,7 +3121,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              28 family-friendly dinner recipes
+              28 простих рецептів для всієї родини
 
             </li>
 
@@ -2949,7 +3131,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Four complete weekly dinner menus
+              Чотири готові тижневі меню вечерь
 
             </li>
 
@@ -2959,7 +3141,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Four ready-made weekly grocery lists
+              Чотири списки покупок на кожен тиждень
 
             </li>
 
@@ -2969,7 +3151,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Prep-ahead schedules for busy weeks
+              Графіки підготовки продуктів заздалегідь
 
             </li>
 
@@ -2979,7 +3161,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Snack and lunch add-on ideas
+              Додаткові ідеї перекусів та обідів
 
             </li>
 
@@ -2989,7 +3171,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Printable meal planner pages
+              Сторінки для планування меню, готові до друку
 
             </li>
 
@@ -2999,7 +3181,7 @@
                 <use href="#i-check"></use>
               </svg>
 
-              Phone, tablet, and print-friendly access
+              Зручний формат для телефона, планшета та друку
 
             </li>
 
@@ -3009,37 +3191,41 @@
 
         <article class="price-card" data-reveal>
 
-          <span class="price-tag">Save 50%</span>
+          <span class="price-tag">
+            Знижка 50%
+          </span>
 
-          <h3>The 4-Week Dinner Plan</h3>
+          <h3>План вечерь на 4 тижні</h3>
 
           <p class="price-product-detail">
-            Digital PDF · 48 pages · Yours to keep
+            Електронний PDF · 48 сторінок · Назавжди ваш
           </p>
 
           <div class="price-display"
-               aria-label="12 US dollars, reduced from 24 US dollars">
+               aria-label="12 доларів США замість 24 доларів США">
 
-            <span class="current-price" aria-hidden="true">
+            <span class="current-price"
+                  aria-hidden="true">
               $12
             </span>
 
-            <del class="original-price" aria-hidden="true">
+            <del class="original-price"
+                 aria-hidden="true">
               $24
             </del>
 
           </div>
 
           <p class="price-note">
-            One-time payment. No subscription.
+            Одноразова оплата. Без підписки.
           </p>
 
           <div class="price-divider"></div>
 
           <p class="price-description">
-            That's less than 43 cents per planned dinner.
-            Spend less time deciding what to cook and more time
-            enjoying your evening.
+            Менше ніж 43 центи за одну сплановану вечерю.
+            Менше часу на роздуми про меню — більше часу
+            на себе та свою родину.
           </p>
 
           <a class="button button-primary"
@@ -3048,7 +3234,7 @@
              rel="noopener"
              data-cta="buy">
 
-            Get the 4-week plan — $12
+            Отримати план на 4 тижні — $12
 
             <svg class="icon" aria-hidden="true">
               <use href="#i-arrow"></use>
@@ -3062,12 +3248,13 @@
               <use href="#i-lock"></use>
             </svg>
 
-            Secure checkout · Instant download
+            Безпечна оплата · Миттєве завантаження
 
           </p>
 
           <p class="price-footnote">
-            All prices in USD. Digital product, no shipping required.
+            Усі ціни в доларах США.
+            Цифровий продукт, доставка не потрібна.
           </p>
 
         </article>
@@ -3076,9 +3263,10 @@
 
     </section>
 
-    <!-- 08. TESTIMONIAL SECTION -->
+    <!-- 08. TESTIMONIALS -->
 
     <section class="section"
+             id="testimonials"
              aria-labelledby="testimonials-title">
 
       <div class="container">
@@ -3086,16 +3274,17 @@
         <div class="section-heading" data-reveal>
 
           <div class="eyebrow">
-            What an easier week could look like
+            Яким може бути ваш тиждень
           </div>
 
           <h2 id="testimonials-title">
-            Less dinner stress. More room for real life.
+            Менше стресу на кухні. Більше часу на життя.
           </h2>
 
           <p>
-            From the Sunday grocery run to the rush after school,
-            here's what a planned week can change.
+            Від недільного походу до супермаркету
+            до вечірньої метушні після роботи й школи —
+            ось як готове меню може полегшити ваші будні.
           </p>
 
         </div>
@@ -3109,22 +3298,23 @@
             </span>
 
             <blockquote>
-              I finished my Sunday grocery shop with one list instead
-              of trying to remember seven different recipes.
+              У неділю купила всі продукти за одним списком.
+              Не довелося відкривати сім різних рецептів
+              і згадувати, чого ще не вистачає.
             </blockquote>
 
             <figcaption class="testimonial-author">
 
-              <span class="avatar" aria-hidden="true">S</span>
+              <span class="avatar" aria-hidden="true">О</span>
 
               <span>
 
                 <span class="author-name">
-                  Sarah
+                  Олена
                 </span>
 
                 <span class="author-detail">
-                  Illustrative scenario · Mom of 2
+                  Приклад ситуації · Мама двох дітей
                 </span>
 
               </span>
@@ -3140,22 +3330,23 @@
             </span>
 
             <blockquote>
-              When I got home from work, I already knew what to make.
-              Dinner was on the table within half an hour.
+              Повернулася з роботи й одразу знала,
+              що готувати. За пів години вечеря вже була
+              на столі, а я нарешті могла відпочити.
             </blockquote>
 
             <figcaption class="testimonial-author">
 
-              <span class="avatar" aria-hidden="true">M</span>
+              <span class="avatar" aria-hidden="true">М</span>
 
               <span>
 
                 <span class="author-name">
-                  Megan
+                  Марина
                 </span>
 
                 <span class="author-detail">
-                  Illustrative scenario · Mom of 3
+                  Приклад ситуації · Мама трьох дітей
                 </span>
 
               </span>
@@ -3171,22 +3362,23 @@
             </span>
 
             <blockquote>
-              We put the weekly menu on the fridge. The kids could
-              check what was for dinner without asking me.
+              Повісили меню на холодильник.
+              Тепер діти самі дивляться, що буде на вечерю,
+              і не запитують мене про це щогодини.
             </blockquote>
 
             <figcaption class="testimonial-author">
 
-              <span class="avatar" aria-hidden="true">L</span>
+              <span class="avatar" aria-hidden="true">І</span>
 
               <span>
 
                 <span class="author-name">
-                  Laura
+                  Ірина
                 </span>
 
                 <span class="author-detail">
-                  Illustrative scenario · Mom of 2
+                  Приклад ситуації · Мама двох дітей
                 </span>
 
               </span>
@@ -3198,8 +3390,9 @@
         </div>
 
         <p class="testimonial-disclosure">
-          These fictional examples illustrate potential everyday uses
-          of the plan. They are not verified customer testimonials.
+          Це вигадані приклади повсякденних ситуацій,
+          які ілюструють можливі переваги плану,
+          а не підтверджені відгуки покупців.
         </p>
 
       </div>
@@ -3216,19 +3409,24 @@
 
         <div class="faq-intro" data-reveal>
 
-          <div class="eyebrow">A few things to know</div>
+          <div class="eyebrow">
+            Корисно знати
+          </div>
 
           <h2 id="faq-title">
-            Before you plan your first week.
+            Що варто знати перед першим тижнем.
           </h2>
 
           <p>
-            Everything you need to know about getting and using
-            your dinner plan.
+            Відповіді на найпоширеніші запитання
+            про покупку та використання плану вечерь.
           </p>
 
-          <a class="text-link" href="#sample">
-            Still deciding? Try the free sample.
+          <a class="text-link"
+             href="#sample">
+
+            Ще вагаєтеся? Спробуйте безкоштовне меню.
+
           </a>
 
         </div>
@@ -3245,9 +3443,10 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-1">
 
-                What format does the dinner plan come in?
+                У якому форматі я отримаю план вечерь?
 
-                <span class="faq-toggle" aria-hidden="true"></span>
+                <span class="faq-toggle"
+                      aria-hidden="true"></span>
 
               </button>
 
@@ -3259,9 +3458,11 @@
                  aria-labelledby="faq-button-1">
 
               <p>
-                It's a 48-page downloadable PDF. Open it on your
-                phone, tablet, or computer using a standard PDF reader.
-                No special app or subscription is needed.
+                Це PDF-файл на 48 сторінок, який можна
+                завантажити на телефон, планшет або комп’ютер.
+                Для перегляду достатньо звичайної програми
+                для читання PDF. Окремий застосунок
+                чи платна підписка не потрібні.
               </p>
 
             </div>
@@ -3278,9 +3479,10 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-2">
 
-                Can I print the recipes and grocery lists?
+                Чи можна роздрукувати рецепти та списки покупок?
 
-                <span class="faq-toggle" aria-hidden="true"></span>
+                <span class="faq-toggle"
+                      aria-hidden="true"></span>
 
               </button>
 
@@ -3292,9 +3494,11 @@
                  aria-labelledby="faq-button-2">
 
               <p>
-                Yes. Print the entire plan or just the pages you need.
-                You can keep the grocery list in your bag and put the
-                weekly dinner menu on your fridge.
+                Так. Можна роздрукувати весь посібник
+                або лише потрібні сторінки.
+                Список покупок зручно взяти із собою
+                до магазину, а тижневе меню —
+                повісити на холодильник.
               </p>
 
             </div>
@@ -3311,9 +3515,10 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-3">
 
-                What if my family has dietary preferences?
+                Що робити, якщо в родині є особливі харчові потреби?
 
-                <span class="faq-toggle" aria-hidden="true"></span>
+                <span class="faq-toggle"
+                      aria-hidden="true"></span>
 
               </button>
 
@@ -3325,10 +3530,13 @@
                  aria-labelledby="faq-button-3">
 
               <p>
-                You can adapt the recipes with familiar ingredient
-                swaps, such as gluten-free pasta or dairy-free cheese.
-                The plan isn't a specialized allergy or medical diet,
-                so check ingredients and adjust grocery lists as needed.
+                Рецепти можна адаптувати під смаки родини:
+                наприклад, використати безглютенову пасту
+                або рослинний аналог сиру.
+                План не є спеціалізованою лікувальною
+                чи гіпоалергенною дієтою, тому перевіряйте
+                склад продуктів і за потреби коригуйте
+                списки покупок.
               </p>
 
             </div>
@@ -3345,9 +3553,10 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-4">
 
-                What's the refund policy?
+                Чи можна повернути кошти після покупки?
 
-                <span class="faq-toggle" aria-hidden="true"></span>
+                <span class="faq-toggle"
+                      aria-hidden="true"></span>
 
               </button>
 
@@ -3359,9 +3568,12 @@
                  aria-labelledby="faq-button-4">
 
               <p>
-                This is a digital download. Please review the seller's
-                refund terms at checkout before purchasing. You can
-                also try the free 3-day sample before making a decision.
+                Це цифровий продукт, тому перед оплатою
+                ознайомтеся з умовами повернення коштів
+                на сторінці оформлення замовлення.
+                Також можна спочатку спробувати безкоштовне
+                меню на три дні й вирішити, чи підходить
+                вам повний план.
               </p>
 
             </div>
@@ -3378,9 +3590,10 @@
                       aria-expanded="true"
                       aria-controls="faq-panel-5">
 
-                How do I receive the plan after buying?
+                Як я отримаю план після оплати?
 
-                <span class="faq-toggle" aria-hidden="true"></span>
+                <span class="faq-toggle"
+                      aria-hidden="true"></span>
 
               </button>
 
@@ -3392,9 +3605,10 @@
                  aria-labelledby="faq-button-5">
 
               <p>
-                Once checkout is complete, you'll receive access to
-                download the PDF. Save a copy on your device so you
-                can use the plan whenever you need it.
+                Після успішної оплати ви отримаєте доступ
+                до завантаження PDF-файлу.
+                Збережіть його на своєму пристрої,
+                щоб користуватися планом у будь-який момент.
               </p>
 
             </div>
@@ -3419,26 +3633,30 @@
 
         <div class="footer-brand">
 
-          <a class="wordmark" href="#top">
+          <a class="wordmark"
+             href="#top"
+             aria-label="План вечерь на 4 тижні — на початок сторінки">
 
             <svg class="brand-icon" aria-hidden="true">
               <use href="#i-brand"></use>
             </svg>
 
-            <span>The 4-Week<br>Dinner Plan</span>
+            <span>План вечерь<br>на 4 тижні</span>
 
           </a>
 
-          <p>Good food. Fewer decisions. Easier evenings.</p>
+          <p>
+            Смачні страви. Менше клопоту. Спокійні вечори.
+          </p>
 
         </div>
 
         <nav class="footer-links"
-             aria-label="Footer navigation">
+             aria-label="Додаткова навігація">
 
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Contact</a>
+          <a href="#">Конфіденційність</a>
+          <a href="#">Умови продажу</a>
+          <a href="#">Контакти</a>
 
         </nav>
 
@@ -3447,10 +3665,13 @@
       <div class="footer-bottom">
 
         <p>
-          &copy; 2026 The 4-Week Dinner Plan. All rights reserved.
+          &copy; 2026 План вечерь на 4 тижні.
+          Усі права захищено.
         </p>
 
-        <p>Made for real family life.</p>
+        <p>
+          Створено для справжніх сімейних буднів.
+        </p>
 
       </div>
 
@@ -3501,12 +3722,6 @@
 
       /*
        * Responsive product composition.
-       *
-       * Scale all three layers together.
-       * Mobile scale is capped at .62.
-       * Mobile stage height is capped at 320px.
-       * Narrower screens receive a smaller scale.
-       * No clipping or hidden overflow is used.
        */
 
       const productStage = document.getElementById(
@@ -3632,11 +3847,6 @@
 
       /*
        * FAQ accordion.
-       *
-       * One answer is open at a time.
-       * Clicking an open question closes it.
-       * Arrow keys, Home, and End navigate the questions.
-       * All answers remain visible without JavaScript.
        */
 
       const faqButtons = Array.from(
@@ -3725,7 +3935,6 @@
 
       /*
        * Email form.
-       *
        * Local demonstration only.
        * No email is transmitted or stored.
        */
@@ -3757,7 +3966,7 @@
           /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!value) {
-          return "Please enter your email address.";
+          return "Введіть адресу електронної пошти.";
         }
 
         if (
@@ -3765,7 +3974,7 @@
           !basicPattern.test(value) ||
           !emailInput.validity.valid
         ) {
-          return "Please enter a valid email address.";
+          return "Введіть коректну адресу електронної пошти.";
         }
 
         return "";
@@ -3823,9 +4032,9 @@
           showEmailError("");
 
           /*
-           * Connect an authorized email delivery integration here.
-           * Do not claim successful email delivery until the service
-           * has actually confirmed it.
+           * Connect the email delivery integration here.
+           * Display an actual delivery confirmation only
+           * after the service confirms successful delivery.
            */
 
           leadForm.reset();
@@ -3855,9 +4064,6 @@
 
       /*
        * Smooth anchor scrolling.
-       *
-       * Native scrollIntoView respects the CSS scroll margin.
-       * Anchored sections remain below the sticky header.
        */
 
       document.querySelectorAll(
@@ -3958,9 +4164,6 @@
 
       /*
        * Subtle reveal-on-scroll.
-       *
-       * Enabled only when IntersectionObserver is supported
-       * and reduced motion has not been requested.
        */
 
       const revealElements = Array.from(
@@ -4059,6 +4262,7 @@
   </script>
 
   <noscript>
+
     <style>
       #lead .form-submit {
         display: none;
@@ -4069,6 +4273,7 @@
         transform: none;
       }
     </style>
+
   </noscript>
 
 </body>
